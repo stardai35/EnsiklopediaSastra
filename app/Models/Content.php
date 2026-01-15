@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
+    protected $table = 'content';
     protected $guarded = ['id'];
 
     // Relasi ke Kategori
