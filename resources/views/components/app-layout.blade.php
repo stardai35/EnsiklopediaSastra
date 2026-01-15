@@ -51,6 +51,7 @@
                     <a href="{{ route('daftar_isi.index') }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-purple-600">Daftar Isi</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900 hover:text-purple-600">Pengarang</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900 hover:text-purple-600">Karya Sastra</a>
+                    <a href="{{ route('tentang') }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-purple-600">Tentang</a>
                     <a href="{{ route('tim_penyusun') }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-purple-600">Tim Penyusun</a>
                 </div>
                 <!-- Login/Search -->
@@ -80,6 +81,7 @@
                                 <a href="{{ route('home') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Beranda</a>
                                 <a href="{{ route('daftar_isi.index') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Daftar Isi</a>
                                 <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Pengarang</a>
+                                <a href="{{ route('tentang') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Tentang</a>
                                 <a href="{{ route('tim_penyusun') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Tim Penyusun</a>
                             </div>
                             <div class="py-6">

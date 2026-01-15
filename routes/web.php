@@ -13,6 +13,10 @@ Route::get('/tim-penyusun', function () {
     return view('pages.tim_penyusun');
 })->name('tim_penyusun');
 
+Route::get('/tentang', function () {
+    return view('pages.tentang');
+})->name('tentang');
+
 Route::get('/daftar-isi', [DaftarIsiController::class, 'index'])->name('daftar_isi.index');
 
 Route::get('/kategori/{slug}', function ($slug) {
