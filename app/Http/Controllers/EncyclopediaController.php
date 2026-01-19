@@ -16,7 +16,7 @@ class EncyclopediaController extends Controller
         // Mengambil konten terbaru dengan relasi lemma dan kategori
         $contents = Content::with(['lemma', 'category', 'media'])->latest()->paginate(12);
         
-        return view('encyclopedia.index', compact('content'));
+        return view('encyclopedia.index', compact('contents'));
     }
 
     // Halaman Detail Artikel

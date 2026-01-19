@@ -20,11 +20,15 @@ Route::get('/tentang', function () {
 Route::get('/daftar-isi', [DaftarIsiController::class, 'index'])->name('daftar_isi.index');
 
 Route::get('/kategori/{slug}', function ($slug) {
-    $category = Category::where('slug', $slug)->firstOrFail();
+    $category = Category::where('slug', $slug)
+        ->with(['contents.lemma', 'contents.media', 'contents.category'])
+        ->firstOrFail();
     return view('pages.category', compact('category'));
 })->name('category.show');
 
 Route::get('/wiki/{slug}', function ($slug) {
-    $content = Content::where('slug', $slug)->firstOrFail();
+    $content = Content::where('slug', $slug)
+        ->with(['lemma', 'category', 'media', 'refLinks'])
+        ->firstOrFail();
     return view('pages.detail', ['article' => $content]);
 })->name('wiki.show');

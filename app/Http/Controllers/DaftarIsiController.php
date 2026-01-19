@@ -14,7 +14,7 @@ class DaftarIsiController extends Controller
         $categories = Category::all();
         
         // Start building the query for contents
-        $query = Content::with('category');
+        $query = Content::with(['category', 'lemma', 'media']);
         
         // Filter by category if provided in query string
         if ($request->has('category')) {

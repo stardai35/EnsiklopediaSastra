@@ -18,4 +18,9 @@ class Media extends Model
     {
         return $this->belongsTo(MediaPosition::class, 'position_id');
     }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class, 'content_id');
+    }
 }
