@@ -91,25 +91,83 @@
                 @endforeach
             </div>
         </div>
-                <!-- Statistics -->
-        <div class="stats-section" style="
-        background:linear-gradient(135deg,#f5f3ff,#ede9fe);
-        border-radius:1.25rem;
-        padding:3rem 2rem;
-    ">
-            <div class="stat-item">
-                <div class="stat-number">{{ $totalAuthors }}</div>
-                <div class="stat-label">Pengarang Terkenal</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">{{ $totalContent }}</div>
-                <div class="stat-label">Karya Sastra</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">104K+</div>
-                <div class="stat-label">Pembaca Aktif</div>
-            </div>
-        </div>
+<!-- Statistics -->
+<div class="stats-section">
+    <div class="stat-item">
+        <div class="stat-number" data-target="{{ $totalCategories }}">0</div>
+        <div class="stat-label">Kelompok Lema</div>
+    </div>
+
+    <div class="stat-item">
+        <div class="stat-number" data-target="{{ $totalContent }}">0</div>
+        <div class="stat-label">Karya Sastra</div>
+    </div>
+
+    <div class="stat-item">
+        <div class="stat-number" data-target="104" data-suffix="K+">0</div>
+        <div class="stat-label">Pembaca</div>
+    </div>
+</div>
+
+<style>
+.stats-section{
+    background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+    border-radius:1.25rem;
+    padding:3rem 2rem;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+}
+
+.stat-number{
+    font-size:2.5rem;
+    font-weight:700;
+    color:#4c1d95;
+}
+
+.stat-label{
+    margin-top:.25rem;
+    color:#6b7280;
+    font-size:.95rem;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stat-number");
+
+    const countUp = (el) => {
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || "";
+        let start = 0;
+        const duration = 1500;
+        const step = target / (duration / 16);
+
+        function update() {
+            start += step;
+            if (start < target) {
+                el.innerText = Math.floor(start).toLocaleString() + suffix;
+                requestAnimationFrame(update);
+            } else {
+                el.innerText = target.toLocaleString() + suffix;
+            }
+        }
+        update();
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                countUp(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+});
+</script>
+
 <section style="padding:5rem 0;background:#fff">
   <div class="container">
     <div class="row align-items-center gy-5">
