@@ -20,13 +20,7 @@ composer install
 ```
 
 ### 2. Configure Environment
-File `.env` sudah dikonfigurasi dengan:
-```
-DB_CONNECTION=mysql
-DB_DATABASE=suzzxrkz_ensisa
-DB_USERNAME=root
-DB_PASSWORD=faradil
-```
+File `.env` sudah dikonfigurasi
 
 ### 3. Run Database
 ```bash
@@ -147,13 +141,6 @@ Lihat file **DOKUMENTASI.md** untuk:
 - Fitur untuk dikembangkan
 
 ## 📄 License
-
-MIT - Bebas untuk digunakan dan dimodifikasi
-
----
-
-**Dibuat dengan ❤️ oleh GitHub Copilot**
-
 **Website aktif di:** http://127.0.0.1:8000
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
