@@ -11,8 +11,6 @@ use App\Http\Controllers\Admin\ImageUploadController;
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
-
-// Image Upload for TinyMCE
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->middleware('auth')->name('upload-image');
 
 // Admin Routes (with auth middleware)

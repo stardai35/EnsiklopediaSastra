@@ -30,3 +30,4 @@ class ImageUploadController extends Controller
         ], 400);
     }
 }
+
