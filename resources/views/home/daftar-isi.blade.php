@@ -29,6 +29,20 @@
                     </h3>
 
                     <form action="{{ route('daftar-isi') }}" method="GET" id="filterForm">
+                        <!-- Search -->
+                        <div style="margin-bottom: 2rem;">
+                            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 0.8rem;">
+                                <i class="fas fa-search"></i> Cari Konten
+                            </label>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                placeholder="Cari judul atau isi..." 
+                                value="{{ $search ?? '' }}"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.95rem;"
+                            >
+                        </div>
+
                         <!-- Filter Kategori -->
                         <div style="margin-bottom: 2rem;">
                             <label style="display: block; font-weight: 600; color: #333; margin-bottom: 0.8rem;">
@@ -93,17 +107,28 @@
             <!-- Main Content -->
             <div class="col-lg-9">
                 <!-- Results Header -->
-                <div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        @if($selectedCategory)
-                            <h2 style="margin: 0; color: var(--primary-color);">
-                                {{ $selectedCategory->name }}
-                                <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }} hasil)</span>
-                            </h2>
-                        @else
-                            <h2 style="margin: 0; color: var(--primary-color);">
-                                Semua Konten
-                                <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }} hasil)</span>
+                <div style="margin-bottom: 2rem;">
+                    @if($search)
+                        <div style="background: #e7f3ff; border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;">
+                            <p style="margin: 0; color: #0c5460;">
+                                <i class="fas fa-search"></i> 
+                                <strong>Hasil pencarian untuk:</strong> "{{ $search }}" 
+                                <span style="color: #666;">({{ $contents->total() }} hasil ditemukan)</span>
+                            </p>
+                        </div>
+                    @endif
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            @if($selectedCategory)
+                                <h2 style="margin: 0; color: var(--primary-color);">
+                                    {{ $selectedCategory->name }}
+                                    <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }} hasil)</span>
+                                </h2>
+                            @else
+                                <h2 style="margin: 0; color: var(--primary-color);">
+                                    Semua Konten
+                                    <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }} hasil)</span>
                             </h2>
                         @endif
                     </div>
@@ -163,7 +188,11 @@
                     <div style="text-align: center; padding: 3rem;">
                         <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem; display: block;"></i>
                         <h3 style="color: #999;">Tidak ada konten yang sesuai</h3>
-                        <p style="color: #bbb;">Coba ubah filter atau kategori Anda</p>
+                        @if($search)
+                            <p style="color: #bbb;">Tidak ditemukan konten dengan pencarian "<strong>{{ $search }}</strong>"</p>
+                        @else
+                            <p style="color: #bbb;">Coba ubah filter atau kategori Anda</p>
+                        @endif
                         <a href="{{ route('daftar-isi') }}" class="btn-primary" style="margin-top: 1rem;">
                             <i class="fas fa-redo"></i> Lihat Semua Konten
                         </a>

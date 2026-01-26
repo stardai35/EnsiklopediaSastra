@@ -384,26 +384,9 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('daftar-isi') }}">Daftar Isi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Kontak</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown">
-                            Kategori
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            @php
-                                $categories = \App\Models\Category::all();
-                            @endphp
-                            @foreach($categories as $cat)
-                                <li><a class="dropdown-item" href="{{ route('category', $cat->slug) }}">{{ $cat->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('contributors') }}">Penyusun</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">Tentang</a></li>            
                 </ul>
-                <div class="search-box">
-                    <input type="text" placeholder="Cari...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
             </div>
         </div>
     </nav>
@@ -427,7 +410,7 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Hubungi Kami</h5>
-                    <p>Email: <a href="mailto:info@ensaiklopediasastra.com">info@ensaiklopediasastra.com</a></p>
+                    <p>Email: <a href="mailto:info@ensaiklopediasastra.com">pusbanglin@gmail.com</a></p>
                     <p>Telepon: +62 123 456 789</p>
                     <div style="margin-top: 1rem;">
                         <span class="footer-icon"><i class="fab fa-facebook"></i></span>

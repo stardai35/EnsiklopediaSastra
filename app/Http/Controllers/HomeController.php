@@ -47,6 +47,15 @@ class HomeController extends Controller
         // Query dasar
         $query = Content::query();
 
+        // Filter pencarian
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('text', 'like', '%' . $search . '%');
+            });
+        }
+
         // Filter kategori
         if ($request->filled('category')) {
             $query->where('cat_id', $request->category);
@@ -82,6 +91,7 @@ class HomeController extends Controller
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
             'sort' => $sort,
+            'search' => $request->search ?? null,
         ]);
     }
 
@@ -112,5 +122,15 @@ class HomeController extends Controller
             'relatedContents' => $relatedContents,
             'categories' => $categories,
         ]);
+    }
+
+    public function about(): View
+    {
+        return view('home.about');
+    }
+
+    public function contributors(): View
+    {
+        return view('home.contributors');
     }
 }

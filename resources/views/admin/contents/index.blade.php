@@ -119,9 +119,56 @@
 
                 <!-- Pagination -->
                 @if($contents->hasPages())
-                    <div style="margin-top: 2rem; display: flex; justify-content: center;">
-                        {{ $contents->links() }}
-                    </div>
+                    <nav role="navigation" aria-label="Pagination Navigation" style="margin-top: 2rem;">
+                        <ul style="gap: 0.5rem; list-style: none; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+                            {{-- Previous Page Link --}}
+                            @if ($contents->onFirstPage())
+                                <li style="opacity: 0.5;">
+                                    <span style="background: #f0f0f0; color: #ccc; border: 1px solid #ddd; padding: 0.6rem 1rem; border-radius: 6px; cursor: not-allowed; display: inline-flex; align-items: center;">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ $contents->previousPageUrl() }}" rel="prev" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='var(--primary-color)';">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            @endif
+
+                            {{-- Page Links --}}
+                            @foreach ($contents->getUrlRange(1, $contents->lastPage()) as $page => $url)
+                                @if ($page == $contents->currentPage())
+                                    <li>
+                                        <span style="background: var(--primary-color); color: white; border: 1px solid var(--primary-color); padding: 0.6rem 0.9rem; border-radius: 6px; font-weight: 600; min-width: 2.5rem; text-align: center; display: inline-block; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);">
+                                            {{ $page }}
+                                        </span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $url }}" style="background: white; color: #666; border: 1px solid #ddd; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; min-width: 2.5rem; text-align: center; text-decoration: none; display: inline-block;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white'; this.style.borderColor='var(--primary-color)';" onmouseout="this.style.background='white'; this.style.color='#666'; this.style.borderColor='#ddd';">
+                                            {{ $page }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($contents->hasMorePages())
+                                <li>
+                                    <a href="{{ $contents->nextPageUrl() }}" rel="next" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='var(--primary-color)';">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            @else
+                                <li style="opacity: 0.5;">
+                                    <span style="background: #f0f0f0; color: #ccc; border: 1px solid #ddd; padding: 0.6rem 1rem; border-radius: 6px; cursor: not-allowed; display: inline-flex; align-items: center;">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
                 @endif
             @else
                 <div style="text-align: center; padding: 3rem; color: #999;">

@@ -22,5 +22,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/daftar-isi', [HomeController::class, 'daftarIsi'])->name('daftar-isi');
+Route::get('/tentang', [HomeController::class, 'about'])->name('about');
+Route::get('/penyusun', [HomeController::class, 'contributors'])->name('contributors');
 Route::get('/kategori/{slug}', [HomeController::class, 'category'])->name('category');
 Route::get('/{slug}', [HomeController::class, 'detail'])->name('detail');

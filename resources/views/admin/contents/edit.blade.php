@@ -187,7 +187,7 @@
         // Delete image
         function deleteImage(imageId, altText) {
             if (confirm(`Hapus gambar "${altText}"?`)) {
-                fetch(`{{ route('admin.images.delete', '') }}/${imageId}`, {
+                fetch(`/admin/images/${imageId}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',

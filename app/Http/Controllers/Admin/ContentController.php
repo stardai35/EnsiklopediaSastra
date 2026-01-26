@@ -161,12 +161,11 @@ class ContentController extends Controller
             ->with('success', 'Konten berhasil dihapus!');
     }
 
-    public function deleteImage(Image $image): RedirectResponse
+    public function deleteImage(Image $image)
     {
-        $contentId = $image->content_id;
         Storage::disk('public')->delete($image->path);
         $image->delete();
 
-        return back()->with('success', 'Gambar berhasil dihapus!');
+        return response()->json(['success' => true, 'message' => 'Gambar berhasil dihapus!']);
     }
 }
