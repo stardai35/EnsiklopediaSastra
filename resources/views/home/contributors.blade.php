@@ -21,14 +21,14 @@
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-crown"></i> Penyunting Utama
+                    <i class="fas fa-user-check"></i> Penyunting Utama
                 </h4>
                 <p style="font-size: 1.1rem; margin: 0;">Dendy Sugono</p>
             </div>
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-edit"></i> Penyunting Penyelia
+                    <i class="fas fa-user-check"></i> Penyunting Penyelia
                 </h4>
                 <p style="margin: 0;">Abdul Rozak Zaidan</p>
             </div>
@@ -44,10 +44,17 @@
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-user-check"></i> Penyusun Awal
+                    <i class="fas fa-users"></i> Penyusun Awal
                 </h4>
                 <p style="margin: 0; line-height: 1.8;">
-                    Abdul Rozak Zaidan, Agus Sri Danardana, Amir Mahmud, Anita K. Rustapa, Atisar, B. Trisman, Dwi Pratiwi, Edwar Djamaris, Erli Yetti, Erlis Nur Mujiningsih, Hani'ah, Joko Adi Sasmito, Juhriah, Maini Trisna Jayawati, Hardiyanto, Martha Lena A. M., Muhammad Fanani, Muhammad Jaruki, Mu'izah, Ni Nyoman Subardini, Nikman Sunardjo, Nur Hayati, Prin Suharto, Puji Santosa, Putri Minerva Mutiara, S. Amran Tasai, Saksono Prijanto, Sastri Sunarti, Siti Zahra Yundiafi, Sri Sayekti, Sulistiati, Suyono Suyatno, Widodo Djati, Yeni Mulyani S., Yus Ruslyana, Zaenal Hakim
+                    Abdul Rozak Zaidan, Agus Sri Danardana, Amir Mahmud, Anita K. Rustapa, Atisah,
+                    B. Trisman, Dwi Pratiwi, Edwar Djamaris, Erli Yetti, Erlis Nur Mujiningsih,
+                    Hani'ah, Joko Adi Sasmito, Juhriah, Maini Trisna Jayawati, Mardiyanto,
+                    Martha Lena A. M., Muhammad Fanani, Muhammad Jaruki, Mu'jizah,
+                    Ni Nyoman Subardini, Nikmah Sunardjo, Nur Hayati, Prih Suharto,
+                    Puji Santosa, Putri Minerva Mutiara, S. Amran Tasai, Saksono Prijanto,
+                    Sastri Sunarti, Siti Zahra Yundiafi, Sri Sayekti, Sulistiati,
+                    Suyono Suyatno, Widodo Djati, Yeni Mulyani S., Yus Rusyana, Zaenal Hakim
                 </p>
             </div>
         </section>
@@ -62,50 +69,46 @@
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-briefcase"></i> Penangguang Jawab dan Penyunting Utama
+                    <i class="fas fa-user-check"></i> Penanggung Jawab dan Penyunting Utama
                 </h4>
-                <p style="margin: 0;">Kepala Badan Pengembangan dan Pembinaan Bahasa,<br>Kementerian Pendidikan dan Kebudayaan Republik Indonesia</p>
+                <p style="margin: 0;">
+                    Kepala Badan Pengembangan dan Pembinaan Bahasa<br>
+                    Kementerian Pendidikan dan Kebudayaan Republik Indonesia
+                </p>
             </div>
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-pencil"></i> Pemimpin Redaksi
+                    <i class="fas fa-user-check"></i> Pemimpin Redaksi
                 </h4>
                 <p style="margin: 0;">Sugiyono</p>
             </div>
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-file-alt"></i> Redaksi Pelaksana / Ketua
+                    <i class="fas fa-user-check"></i> Redaksi Pelaksana / Ketua
                 </h4>
-                <p style="margin: 0;">Meity Taqdir Qoratilah</p>
+                <p style="margin: 0;">Meity Taqdir Qoratillah</p>
             </div>
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem;">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-pen"></i> Sidang Redaksi
+                    <i class="fas fa-users"></i> Sidang Redaksi
                 </h4>
                 <p style="margin: 0;">
-                    Ahmadun Yosie Herfanda, Atisar, Ayu Sutarto, Erlis Nur Mujinningsih, Ganjar Harimansyah, Kenedi Nurhan, Maini Trisna Jayawati, Sunu Wasono
+                    Ahmadun Yosie Herfanda, Atisah, Ayu Sutarto, Erlis Nur Mujiningsih,
+                    Ganjar Harimansyah, Kenedi Nurhan, Maini Trisna Jayawati, Sunu Wasono
                 </p>
             </div>
 
             <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
                 <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                    <i class="fas fa-hands-helping"></i> Pembantu Pelaksana
+                    <i class="fas fa-users"></i> Pembantu Pelaksana
                 </h4>
                 <p style="margin: 0;">
-                    Dina Alfianti Fasa, Dina Amalia Susamoto, Ferdinandus Moses
+                    Dina Alfianti Fasa, Dina Amalia Susamto, Ferdinandus Moses
                 </p>
             </div>
         </section>
-
-        <!-- Info Box -->
-        <div style="background: linear-gradient(135deg, #f0f0ff 0%, #f5e6ff 100%); padding: 2rem; border-radius: 10px; margin-top: 4rem; border-left: 4px solid var(--primary-color);">
-            <p style="margin: 0; color: #333;">
-                <i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 1rem;"></i>
-                <strong>Terima Kasih</strong> kepada semua tim penyusun, editor, dan kontributor yang telah berdedikasi dalam menyiapkan Ensiklopedia Sastra Indonesia ini. Kolaborasi dan kerja keras mereka adalah bukti komitmen terhadap pelestarian dan pengembangan sastra nasional.
-            </p>
-        </div>
     </div>
 @endsection

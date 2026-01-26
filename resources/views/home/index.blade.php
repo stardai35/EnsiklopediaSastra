@@ -6,7 +6,6 @@
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-logo">
-            <img src="{{ asset('https://back-lavender-bted6eqhwl.edgeone.app/unnamed%201.png') }}" alt="Ensiklopedia Sastra Indonesia">
         </div>
         <div class="container">
             <h1>ENSIKLOPEDIA</h1>
@@ -38,22 +37,6 @@
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Statistics -->
-        <div class="stats-section">
-            <div class="stat-item">
-                <div class="stat-number">{{ $totalAuthors }}</div>
-                <div class="stat-label">Pengarang Terkenal</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">{{ $totalContent }}</div>
-                <div class="stat-label">Karya Sastra</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">104K+</div>
-                <div class="stat-label">Pembaca Aktif</div>
-            </div>
-        </div>
-
         <!-- Category Sections -->
         @foreach($categories as $category)
             @if(isset($categoryContents[$category->id]) && count($categoryContents[$category->id]) > 0)
@@ -108,72 +91,121 @@
                 @endforeach
             </div>
         </div>
-
-        <!-- FAQ Section -->
-        <div class="faq-section" style="margin: 4rem 0;">
-            <h2 class="section-title">Pertanyaan yang Sering Ditanyakan</h2>
-            <div class="accordion" id="faqAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                            Apa itu Ensiklopedia Sastra Indonesia?
-                        </button>
-                    </h2>
-                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Ensiklopedia Sastra Indonesia adalah platform komprehensif yang menyediakan informasi lengkap tentang sastra Indonesia, mencakup profil pengarang, karya sastra, penerbit, penghargaan, dan lembaga-lembaga sastra.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                            Apa saja kategori yang tersedia?
-                        </button>
-                    </h2>
-                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Kami menyediakan enam kategori utama: Pengarang, Karya Sastra, Media Penyebar/Penerbit Sastra, Hadiah/Sayembara Sastra, Lembaga Sastra, dan Gejala Sastra.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                            Bagaimana cara mencari informasi tertentu?
-                        </button>
-                    </h2>
-                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Anda dapat menggunakan fitur pencarian di bagian atas halaman atau menjelajahi melalui kategori. Setiap kategori menampilkan daftar lengkap konten yang terkait.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                            Apakah informasi di sini selalu diperbarui?
-                        </button>
-                    </h2>
-                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Ya, kami secara teratur memperbarui informasi untuk memastikan akurasi dan kelengkapan. Jika Anda menemukan informasi yang tidak akurat, silakan hubungi kami.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                            Bagaimana cara menghubungi tim support?
-                        </button>
-                    </h2>
-                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Anda dapat menghubungi kami melalui email atau formulir kontak yang tersedia di halaman kontak. Tim kami siap membantu Anda.
-                        </div>
-                    </div>
-                </div>
+                <!-- Statistics -->
+        <div class="stats-section" style="
+        background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+        border-radius:1.25rem;
+        padding:3rem 2rem;
+    ">
+            <div class="stat-item">
+                <div class="stat-number">{{ $totalAuthors }}</div>
+                <div class="stat-label">Pengarang Terkenal</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ $totalContent }}</div>
+                <div class="stat-label">Karya Sastra</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">104K+</div>
+                <div class="stat-label">Pembaca Aktif</div>
             </div>
         </div>
+<section style="padding:5rem 0;background:#fff">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+
+      <!-- LEFT FAQ -->
+      <div class="col-lg-6">
+        <h2 style="font-size:2rem;font-weight:700;margin-bottom:2.5rem;color:#111827">
+          Pertanyaan yang Sering Ditanyakan
+        </h2>
+
+        <div style="border-top:1px solid #e5e7eb">
+
+          <!-- ITEM -->
+          <div style="padding:1.2rem 0;border-bottom:1px solid #e5e7eb">
+            <button data-bs-toggle="collapse" data-bs-target="#faq1"
+              style="width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;font-size:1rem;font-weight:500;color:#111827">
+              <span>1. Apa itu Ensiklopedia Sastra Indonesia?</span>
+              <i class="fas fa-chevron-down" style="color:#6b7280"></i>
+            </button>
+            <div id="faq1" class="collapse show">
+              <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
+                Ensiklopedia Sastra Indonesia merupakan sumber informasi tepercaya
+                yang memuat data pengarang, karya, lembaga, dan perkembangan sastra Indonesia.
+              </p>
+            </div>
+          </div>
+
+          <!-- DUPLIKASI ITEM -->
+          <div style="padding:1.2rem 0;border-bottom:1px solid #e5e7eb">
+            <button data-bs-toggle="collapse" data-bs-target="#faq2" class="collapsed"
+              style="width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;font-size:1rem;font-weight:500;color:#111827">
+              <span>2. Apa tujuan dibuatnya Ensiklopedia Sastra Indonesia?</span>
+              <i class="fas fa-chevron-down" style="color:#6b7280"></i>
+            </button>
+            <div id="faq2" class="collapse">
+              <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
+                Untuk mendokumentasikan dan melestarikan kekayaan sastra Indonesia
+                agar mudah diakses oleh masyarakat luas.
+              </p>
+            </div>
+          </div>
+
+          <div style="padding:1.2rem 0;border-bottom:1px solid #e5e7eb">
+            <button data-bs-toggle="collapse" data-bs-target="#faq3" class="collapsed"
+              style="width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;font-size:1rem;font-weight:500;color:#111827">
+              <span>3. Informasi apa saja yang tersedia?</span>
+              <i class="fas fa-chevron-down" style="color:#6b7280"></i>
+            </button>
+            <div id="faq3" class="collapse">
+              <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
+                Informasi meliputi pengarang, karya sastra, penerbit, lembaga sastra, dan gejala sastra.
+              </p>
+            </div>
+          </div>
+
+          <div style="padding:1.2rem 0;border-bottom:1px solid #e5e7eb">
+            <button data-bs-toggle="collapse" data-bs-target="#faq4" class="collapsed"
+              style="width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;font-size:1rem;font-weight:500;color:#111827">
+              <span>4. Apakah semua konten dapat diakses gratis?</span>
+              <i class="fas fa-chevron-down" style="color:#6b7280"></i>
+            </button>
+            <div id="faq4" class="collapse">
+              <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
+                Ya, seluruh konten dapat diakses secara gratis oleh publik.
+              </p>
+            </div>
+          </div>
+
+          <div style="padding:1.2rem 0">
+            <button data-bs-toggle="collapse" data-bs-target="#faq5" class="collapsed"
+              style="width:100%;background:none;border:none;padding:0;display:flex;justify-content:space-between;align-items:center;font-size:1rem;font-weight:500;color:#111827">
+              <span>5. Bagaimana cara memberikan saran atau koreksi?</span>
+              <i class="fas fa-chevron-down" style="color:#6b7280"></i>
+            </button>
+            <div id="faq5" class="collapse">
+              <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
+                Anda dapat menyampaikan masukan melalui halaman kontak yang tersedia di situs ini.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT VISUAL -->
+      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+        <div style="width:300px;height:300px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#9333ea);display:flex;align-items:center;justify-content:center">
+          <div style="width:200px;height:200px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:6rem;font-weight:700;color:#7c3aed">
+            ?
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
     </div>
 @endsection

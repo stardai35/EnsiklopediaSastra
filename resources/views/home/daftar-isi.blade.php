@@ -217,4 +217,6 @@
             text-decoration: underline;
         }
     </style>
+    </div>>
 @endsection
+

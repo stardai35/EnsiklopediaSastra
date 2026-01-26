@@ -355,7 +355,9 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <h5><i class="fas fa-book-open"></i> ADMIN</h5>
+                <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+         style="max-width: 50px; height: auto;">
+            <h5>ADMIN</h5>
             <small style="opacity: 0.8;">Ensiklopedia Sastra</small>
         </div>
 
