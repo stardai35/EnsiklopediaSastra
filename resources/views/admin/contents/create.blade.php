@@ -74,19 +74,21 @@
 
                 <div class="mb-3">
                     <label for="text" class="form-label">
-                        <i class="fas fa-align-left"></i> Deskripsi <span style="color: red;">*</span>
+                        <i class="fas fa-align-left"></i> Konten / Artikel <span style="color: red;">*</span>
                     </label>
                     <textarea 
                         name="text" 
                         id="text" 
-                        class="form-control @error('text') is-invalid @enderror" 
-                        rows="6"
-                        placeholder="Masukkan deskripsi lengkap konten"
+                        class="form-control summernote @error('text') is-invalid @enderror"
+                        placeholder="Masukkan konten lengkap dengan formatting"
                         required
                     >{{ old('text') }}</textarea>
                     @error('text')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> Gunakan editor untuk formatting teks, insert gambar, membuat list, dll
+                    </small>
                 </div>
 
                 <div class="mb-3">
@@ -132,7 +134,37 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
     <script>
+        // Initialize Summernote
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                placeholder: 'Masukkan konten...',
+                height: 400,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'hr']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ],
+                popover: {
+                    image: [
+                        ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                        ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                        ['remove', ['removeMedia']]
+                    ]
+                }
+            });
+        });
+
         // Image preview
         document.getElementById('images').addEventListener('change', function(e) {
             const preview = document.getElementById('imagePreview');

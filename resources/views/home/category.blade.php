@@ -34,7 +34,12 @@
                         </div>
                         <div class="category-card-body">
                             <h5 class="category-card-title">{{ $content->title }}</h5>
-                            <p class="category-card-text"><strong>Tahun:</strong> {{ $content->year }}</p>
+                            <p class="category-card-text">
+                                <strong>Tahun:</strong> {{ $content->year }}
+                                <span style="margin-left: 1rem; color: #999;">
+                                    <i class="fas fa-eye"></i> {{ $content->views }}
+                                </span>
+                            </p>
                             <p class="category-card-text">{{ Str::limit($content->text, 100, '...') }}</p>
                             <a href="{{ route('detail', $content->slug) }}" class="btn-primary" style="display: block; margin-top: 1rem;">
                                 Baca Selengkapnya

@@ -5,11 +5,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ImageUploadController;
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Image Upload for TinyMCE
+Route::post('/upload-image', [ImageUploadController::class, 'upload'])->middleware('auth')->name('upload-image');
 
 // Admin Routes (with auth middleware)
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
