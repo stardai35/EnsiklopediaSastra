@@ -111,10 +111,6 @@ class HomeController extends Controller
     public function detail(string $slug): View
     {
         $content = Content::where('slug', $slug)->firstOrFail();
-        
-        // Increment views
-        $content->increment('views');
-        
         $relatedContents = Content::where('cat_id', $content->cat_id)
             ->where('id', '!=', $content->id)
             ->take(3)

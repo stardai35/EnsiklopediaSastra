@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
-    protected $fillable = ['cat_id', 'title', 'year', 'text', 'slug', 'views'];
+    protected $fillable = ['cat_id', 'title', 'year', 'text', 'slug'];
     public $timestamps = false;
 
     public function category()

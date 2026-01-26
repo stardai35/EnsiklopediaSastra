@@ -6,7 +6,7 @@
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-logo">
-            <i class="fas fa-book-open" style="font-size: 150px; color: white;"></i>
+            <img src="{{ asset('https://back-lavender-bted6eqhwl.edgeone.app/unnamed%201.png') }}" alt="Ensiklopedia Sastra Indonesia">
         </div>
         <div class="container">
             <h1>ENSIKLOPEDIA</h1>

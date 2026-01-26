@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="container" style="margin-top: 2rem; margin-bottom: 5rem;">
+    <div class="container" style="margin-top: 2rem;">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" style="margin-bottom: 2rem;">
             <ol class="breadcrumb">
@@ -162,9 +162,6 @@
 
                                         <p class="category-card-text" style="margin-bottom: 0.5rem;">
                                             <i class="fas fa-calendar"></i> <strong>{{ $content->year }}</strong>
-                                            <span style="margin-left: 1rem; color: #999;">
-                                                <i class="fas fa-eye"></i> {{ $content->views }}
-                                            </span>
                                         </p>
 
                                         <p class="category-card-text" style="color: #666; margin-bottom: 1rem;">

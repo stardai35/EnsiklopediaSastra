@@ -297,36 +297,6 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        /* Back to Top Button */
-        #backToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        #backToTop:hover {
-            background: #6c2fd1;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        #backToTop.show {
-            display: flex;
-        }
-
         /* Section Title */
         .section-title {
             font-size: 2rem;
@@ -396,6 +366,46 @@
             margin-top: 2rem;
             margin-bottom: 2rem;
         }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: none;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
     @yield('extra-css')
 </head>
@@ -403,10 +413,11 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="fas fa-book-open"></i>
-                ENSIKLOPEDIA
-            </a>
+            
+           <a class="navbar-brand" href="{{ route('home') }}">
+    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+         style="max-width: 50px; height: auto;">
+</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -429,42 +440,74 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Tentang Kami</h5>
-                    <p>Ensiklopedia Sastra Indonesia adalah platform komprehensif yang menghadirkan informasi lengkap tentang sastra Indonesia, dari pengarang, karya, hingga penghargaan.</p>
+                    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png" alt="Logo" class="img-fluid mb-2" style="max-width: 80px;">
+                    <h6><b>Pusat Pengembangan Bahasa dan Sastra</b></h6>
+                    <p>Badan Pengembangan dan Pembinaan Bahasa <br>
+                    Kementrian Pendidikan Dasar dan Menengah</p>
                 </div>
                 <div class="col-md-4">
-                    <h5>Menu</h5>
+                    <h5>Peta Situs</h5>
                     <a href="{{ route('home') }}">Beranda</a>
-                    <a href="{{ route('home') }}">Tentang</a>
-                    <a href="{{ route('home') }}">Kontak</a>
-                </div>
-                <div class="col-md-4">
-                    <h5>Hubungi Kami</h5>
-                    <p>Email: <a href="mailto:info@ensaiklopediasastra.com">pusbanglin@gmail.com</a></p>
-                    <p>Telepon: +62 123 456 789</p>
-                    <div style="margin-top: 1rem;">
-                        <span class="footer-icon"><i class="fab fa-facebook"></i></span>
-                        <span class="footer-icon"><i class="fab fa-twitter"></i></span>
-                        <span class="footer-icon"><i class="fab fa-instagram"></i></span>
+                    <a href="{{ route('daftar-isi') }}">Daftar Isi</a>
+                    <a href="{{ route('contributors') }}">Penyusun</a>
+                    <a href="{{ route('about') }}">Tentang</a>
                     </div>
-                </div>
+                    <div class="col-md-4">
+                        <h5>Kontak Kami</h5>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>
+                            Jalan Anyar Km.4, Kec. Citeureup,
+                            Kab. Bogor, Jawa Barat 16810</p>
+                            <p><i class="fas fa-envelope me-2"></i>pusbanglin@kemdikbud.go.id</p>
+                            <div style="margin-top: 1rem;">
+                            
+                                <span class="footer-icon">
+                                    <a href="https://www.instagram.com/pusbanglin_kemdikdasmen/"
+                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </span>
+                            
+                                <span class="footer-icon">
+                                    <a href="https://www.youtube.com"
+                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </span>
+                                <span class="footer-icon">
+                                    <a href="https://www.facebook.com/Badan.Bahasa"
+                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </span>
+                            
+                                <span class="footer-icon">
+                                    <a href="https://x.com/BadanBahasa"
+                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </span>
+                            
+                            </div>
+
+                            </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Ensiklopedia Sastra Indonesia. Hak Cipta Dilindungi.</p>
+                <p>&copy; Copyrights 2026 Ensiklopedia Sastra Indonesia. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" title="Kembali ke atas">
-        <i class="fas fa-arrow-up"></i>
+    <button class="back-to-top" id="backToTop" title="Kembali ke atas">
+        <i class="fas fa-chevron-up"></i>
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         // Back to Top Button
         const backToTopBtn = document.getElementById('backToTop');
-        
+
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {
                 backToTopBtn.classList.add('show');

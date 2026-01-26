@@ -38,9 +38,6 @@
                         <span style="display: inline-block; margin-left: 1rem; color: #999; font-size: 0.9rem;">
                             <i class="fas fa-calendar"></i> {{ $content->year }}
                         </span>
-                        <span style="display: inline-block; margin-left: 1rem; color: #999; font-size: 0.9rem;">
-                            <i class="fas fa-eye"></i> {{ $content->views }} dilihat
-                        </span>
                     </div>
 
                     <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">{{ $content->title }}</h2>
