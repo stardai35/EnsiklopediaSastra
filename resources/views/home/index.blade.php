@@ -37,37 +37,51 @@
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Category Sections -->
-        @foreach($categories as $category)
-            @if(isset($categoryContents[$category->id]) && count($categoryContents[$category->id]) > 0)
-                <div style="margin: 4rem 0;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <h2 class="section-title">{{ $category->name }}</h2>
-                        <a href="{{ route('category', $category->slug) }}" class="btn-primary">Lihat Semuanya</a>
-                    </div>
+        <div class="container my-5">
+    <h2 class="section-title">Telusuri melalui Kategori</h2>
 
-                    <div class="row">
-                        @foreach($categoryContents[$category->id] as $content)
-                            <div class="col-md-6 col-lg-4 mb-4">
-                                <div class="card category-card">
-                                    <div class="category-card-img">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <div class="category-card-body">
-                                        <h5 class="category-card-title">{{ $content->title }}</h5>
-                                        <p class="category-card-text"><strong>Tahun:</strong> {{ $content->year }}</p>
-                                        <p class="category-card-text">{{ Str::limit($content->text, 80, '...') }}</p>
-                                        <a href="{{ route('detail', $content->slug) }}" class="btn-primary" style="display: block; margin-top: 1rem;">
-                                            Baca Selengkapnya
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+    <div class="row g-4">
+        @foreach($categories as $category)
+            @if(!empty($categoryContents[$category->id]))
+                <div class="col-md-6 col-lg-4">
+                    <div class="category-box">
+                        <div class="category-thumb-grid">
+                            @foreach(collect($categoryContents[$category->id])->take(4) as $content)
+                                <img 
+                                    src="{{ $content->cover ?? asset('images/default.jpg') }}" 
+                                    alt="{{ $content->title }}"
+                                >
+                            @endforeach
+                        </div>
+
+                        <!-- Text -->
+                        <div class="category-content">
+                            <h5>{{ $category->name }}</h5>
+                            @php
+$text = match ($category->slug) {
+    'pengarang' => 'Daftar tokoh pengarang sastra Indonesia beserta karya dan profil singkatnya.',
+    'karya-sastra' => 'Kumpulan karya sastra berupa novel, cerpen, puisi, dan naskah drama.',
+    'gejala-sastra' => 'Fenomena dan perkembangan sastra di berbagai periode.',
+    'lembaga-sastra' => 'Lorem Ipsum dolor sit amet, consectetur adipiscing elit.',
+    'media-penyebar-penerbit-sastra' => '2 Lorem Ipsum dolor sit amet, ',
+    'hadiah-sayembara-sastra' => '3 Lorem Ipsum dolor sit amet, '
+};
+@endphp
+
+<p>{{ $text }}</p>
+                            
+                            <a href="{{ route('category', $category->slug) }}" class="category-link">
+                                Lihat selengkapnya →
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             @endif
         @endforeach
+    </div>
+</div>
+
 
         <!-- Popular People Section -->
         <div style="margin: 4rem 0;">
@@ -91,6 +105,7 @@
                 @endforeach
             </div>
         </div>
+        
 <!-- Statistics -->
 <div class="stats-section">
     <div class="stat-item">
@@ -129,6 +144,46 @@
     margin-top:.25rem;
     color:#6b7280;
     font-size:.95rem;
+}
+.category-box {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    height: 100%;
+}
+
+.category-thumb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 52px);
+    grid-auto-rows: 52px;
+    gap: 6px;
+}
+
+.category-thumb-grid img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.category-content h5 {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.category-content p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.category-link {
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
 }
 </style>
 

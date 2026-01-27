@@ -55,7 +55,7 @@
         <!-- Pagination -->
         @if($contents->hasPages())
             <div style="margin-top: 2rem; display: flex; justify-content: center;">
-                {{ $contents->links() }}
+                {{ $contents->links('vendor.pagination.custom') }}
             </div>
         @endif
     </div>
