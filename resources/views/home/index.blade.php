@@ -4,29 +4,32 @@
 
 @section('content')
     <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero-logo">
-        </div>
-        <div class="container">
-            <h1>ENSIKLOPEDIA</h1>
-            <p>SASTRA INDONESIA</p>
+<div class="hero-section">
+    <div class="hero-container">
 
-            <!-- Search Box in Hero -->
-            <div style="margin-top: 2rem; display: flex; justify-content: center;">
-                <form action="{{ route('daftar-isi') }}" method="GET" style="width: 100%; max-width: 500px;">
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="text" name="search" placeholder="Cari konten sastra..."
-                            style="flex: 1; padding: 12px 20px; border: none; border-radius: 8px 0 0 8px; font-size: 1rem;">
-                        <button type="submit"
-                            style="background: white; color: var(--primary-color); border: none; padding: 12px 25px; border-radius: 0 8px 8px 0; cursor: pointer; font-weight: 600; transition: all 0.3s;"
-                            onmouseover="this.style.background='#f0f0f0';" onmouseout="this.style.background='white';">
-                            <i class="fas fa-search"></i> Cari
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <!-- Logo kiri -->
+        <div class="hero-logo">
+            <img src="{{ asset('https://zippy-white-isy941v3v7.edgeone.app/unnamed%201.png') }}" alt="Ensiklopedia Sastra Indonesia">
         </div>
+
+        <!-- Konten kanan -->
+        <div class="hero-content">
+            <h1>ENSIKLOPEDIA</h1>
+            <h2>SASTRA INDONESIA</h2>
+
+            <!-- Search -->
+            <form action="{{ route('daftar-isi') }}" method="GET" class="hero-search">
+                <span class="search-icon">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" name="search" placeholder="Apa yang ingin dipelajari hari ini?">
+                <button type="submit">Mencari</button>
+            </form>
+        </div>
+
     </div>
+</div>
+
 
     <!-- Main Container -->
     <div class="container">
@@ -125,6 +128,7 @@
         </div>
 
         <style>
+            
             .stats-section {
                 background: linear-gradient(135deg, #f5f3ff, #ede9fe);
                 border-radius: 1.25rem;
@@ -157,19 +161,18 @@
             }
 
             .category-thumb-grid {
-                width: 100%;
-                height: 180px;              
-                overflow: hidden;
-                border-radius: 1rem;
+                display: flex;
+                gap: 6px;
             }
 
             .category-thumb-grid img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;     
-                display: block;
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 2px;
             }
-                        .category-content h5 {
+
+            .category-content h5 {
                 font-weight: 700;
                 margin-bottom: 6px;
             }
@@ -185,6 +188,7 @@
                 color: #2563eb;
                 text-decoration: none;
             }
+
         </style>
 
         <script>

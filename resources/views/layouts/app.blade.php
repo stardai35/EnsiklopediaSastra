@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #7c3aed;
-            --secondary-color: #a78bfa;
+            --primary-color: #692D91;
+            --secondary-color: #ec4899;
         }
 
         * {
@@ -25,7 +26,7 @@
 
         /* Navigation */
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            background: #692D91;
             padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
@@ -82,12 +83,8 @@
 
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: #ffffff;
+            padding: 0.2rem 0;
         }
 
         .hero-section h1 {
@@ -103,18 +100,6 @@
             opacity: 0.95;
         }
 
-        .hero-logo {
-            position: absolute;
-            left: 3%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.8;
-        }
-
-        .hero-logo img {
-            height: 150px;
-        }
-
         /* Cards */
         .category-card {
             border: none;
@@ -124,6 +109,90 @@
             height: 100%;
         }
 
+        .hero-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 0 8rem;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        
+        .hero-logo {
+            flex: 1;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            max-width: 380px;
+        }
+   
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .hero-content h2 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            letter-spacing: 6px;
+            margin: 1rem 0 2.5rem;
+        }
+
+        /* Search box */
+        .hero-search {
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .hero-search .search-icon {
+            padding: 0 1.2rem;
+            color: #9ca3af;
+            font-size: 1.1rem;
+        }
+
+        .hero-search input {
+            flex: 1;
+            padding: 16px 10px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .hero-search button {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            color: #ffffff;
+            border: none;
+            padding: 16px 36px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-search {
+                margin: auto;
+            }
+        }
+
         .category-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -131,7 +200,7 @@
 
         .category-card-img {
             height: 150px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            background: #692D91;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,7 +319,7 @@
 
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #692D91 100%);
             color: white;
             padding: 3rem 0 1rem;
             margin-top: 4rem;
@@ -330,7 +399,7 @@
         }
 
         .btn-primary:hover {
-            background: #6d28d9;
+            background: #692D91;
             color: white;
         }
 
@@ -342,10 +411,6 @@
 
             .hero-section p {
                 font-size: 1rem;
-            }
-
-            .hero-logo {
-                display: none;
             }
 
             .search-box {
@@ -372,7 +437,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            background: #FFC107;
             color: white;
             width: 50px;
             height: 50px;
@@ -409,15 +474,16 @@
     </style>
     @yield('extra-css')
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            
-           <a class="navbar-brand" href="{{ route('home') }}">
-    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
-         style="max-width: 50px; height: auto;">
-</a>
+
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+                    style="max-width: 50px; height: auto;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -426,7 +492,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('daftar-isi') }}">Daftar Isi</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('contributors') }}">Penyusun</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">Tentang</a></li>            
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">Tentang</a></li>
                 </ul>
             </div>
         </div>
@@ -440,10 +506,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png" alt="Logo" class="img-fluid mb-2" style="max-width: 80px;">
+                    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+                        alt="Logo" class="img-fluid mb-2" style="max-width: 80px;">
                     <h6><b>Pusat Pengembangan Bahasa dan Sastra</b></h6>
                     <p>Badan Pengembangan dan Pembinaan Bahasa <br>
-                    Kementrian Pendidikan Dasar dan Menengah</p>
+                        Kementrian Pendidikan Dasar dan Menengah</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Peta Situs</h5>
@@ -451,45 +518,45 @@
                     <a href="{{ route('daftar-isi') }}">Daftar Isi</a>
                     <a href="{{ route('contributors') }}">Penyusun</a>
                     <a href="{{ route('about') }}">Tentang</a>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Kontak Kami</h5>
-                        <p><i class="fas fa-map-marker-alt me-2"></i>
-                            Jalan Anyar Km.4, Kec. Citeureup,
-                            Kab. Bogor, Jawa Barat 16810</p>
-                            <p><i class="fas fa-envelope me-2"></i>pusbanglin@kemdikbud.go.id</p>
-                            <div style="margin-top: 1rem;">
-                            
-                                <span class="footer-icon">
-                                    <a href="https://www.instagram.com/pusbanglin_kemdikdasmen/"
-                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </span>
-                            
-                                <span class="footer-icon">
-                                    <a href="https://www.youtube.com"
-                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </span>
-                                <span class="footer-icon">
-                                    <a href="https://www.facebook.com/Badan.Bahasa"
-                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </span>
-                            
-                                <span class="footer-icon">
-                                    <a href="https://x.com/BadanBahasa"
-                                        style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </span>
-                            
-                            </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Kontak Kami</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>
+                        Jalan Anyar Km.4, Kec. Citeureup,
+                        Kab. Bogor, Jawa Barat 16810</p>
+                    <p><i class="fas fa-envelope me-2"></i>pusbanglin@kemdikbud.go.id</p>
+                    <div style="margin-top: 1rem;">
 
-                            </div>
+                        <span class="footer-icon">
+                            <a href="https://www.instagram.com/pusbanglin_kemdikdasmen/"
+                                style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </span>
+
+                        <span class="footer-icon">
+                            <a href="https://www.youtube.com"
+                                style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </span>
+                        <span class="footer-icon">
+                            <a href="https://www.facebook.com/Badan.Bahasa"
+                                style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </span>
+
+                        <span class="footer-icon">
+                            <a href="https://x.com/BadanBahasa"
+                                style="color:inherit; text-decoration:none; display:inline-flex; align-items:center;">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </span>
+
+                    </div>
+
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; Copyrights 2026 Ensiklopedia Sastra Indonesia. All rights reserved.</p>
@@ -503,12 +570,12 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Back to Top Button
         const backToTopBtn = document.getElementById('backToTop');
 
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (window.pageYOffset > 300) {
                 backToTopBtn.classList.add('show');
             } else {
@@ -516,7 +583,7 @@
             }
         });
 
-        backToTopBtn.addEventListener('click', function() {
+        backToTopBtn.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -525,4 +592,5 @@
     </script>
     @yield('extra-js')
 </body>
+
 </html>
