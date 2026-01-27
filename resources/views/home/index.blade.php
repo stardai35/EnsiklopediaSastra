@@ -87,13 +87,19 @@
 
         <!-- Popular People Section -->
         <div style="margin: 4rem 0;">
-            <h2 class="section-title">Pengarang Populer</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 class="section-title" style="margin: 0;">Pengarang Populer</h2>
+                <a href="{{ route('category', 'pengarang') }}" class="lihat-semua-pengarang-btn" style="display: inline-block; padding: 0.5rem 1rem; color: #3366cc; background: white; border: 1px solid #3366cc; border-radius: 4px; text-decoration: none; font-size: 0.95rem; transition: all 0.2s;">
+                    Lihat Semua Pengarang
+                </a>
+            </div>
             <div class="people-grid">
                 @foreach($popularPeople as $person)
                     <div class="person-card">
-                        <div class="person-image">
+                        <div class="person-image" style="position: relative;">
                             @if($person->images->first())
-                                <img src="{{ asset('storage/' . $person->images->first()->path) }}" alt="{{ $person->title }}">
+                                <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; border-radius: 10px;"></div>
+                                <img src="{{ asset('storage/' . $person->images->first()->path) }}" alt="{{ $person->title }}" class="lazy-image" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
                             @else
                                 <i class="fas fa-user" style="font-size: 80px; color: #ccc;"></i>
                             @endif
@@ -128,6 +134,10 @@
         </div>
 
         <style>
+            .lihat-semua-pengarang-btn:hover {
+                background: #3366cc;
+                color: white;
+            }
             
             .stats-section {
                 background: linear-gradient(135deg, #f5f3ff, #ede9fe);
@@ -168,8 +178,9 @@
             .category-thumb-grid img {
                 width: 120px;
                 height: 120px;
-                object-fit: cover;
+                object-fit: contain;
                 border-radius: 2px;
+                background: #f8f9fa;
             }
 
             .category-content h5 {

@@ -87,7 +87,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <small class="text-muted">
-                        <i class="fas fa-info-circle"></i> Gunakan editor untuk formatting teks, insert gambar, membuat list, dll
+                        <i class="fas fa-info-circle"></i> Gunakan editor untuk formatting teks, membuat list, dll
                     </small>
                 </div>
 
@@ -151,17 +151,10 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture', 'hr']],
+                    ['insert', ['link', 'hr']],
                     ['view', ['fullscreen', 'codeview']],
                     ['help', ['help']]
-                ],
-                popover: {
-                    image: [
-                        ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                        ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                        ['remove', ['removeMedia']]
-                    ]
-                }
+                ]
             });
         });
 

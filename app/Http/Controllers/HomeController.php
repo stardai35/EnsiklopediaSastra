@@ -22,8 +22,8 @@ class HomeController extends Controller
                 ->get();
         }
 
-        // Ambil popular people (category 1 = Pengarang)
-        $popularPeople = Content::where('cat_id', 1)->take(4)->get();
+        // Ambil popular people (category 1 = Pengarang) - randomized
+        $popularPeople = Content::where('cat_id', 1)->inRandomOrder()->take(4)->get();
 
         // Hitung statistik
         $totalContent = Content::count();
@@ -43,16 +43,18 @@ class HomeController extends Controller
     public function daftarIsi(Request $request): View
     {
         $categories = Category::all();
-        
+
         // Query dasar
         $query = Content::query();
 
         // Filter pencarian
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('text', 'like', '%' . $search . '%');
+                    ->orWhereHas('category', function ($categoryQuery) use ($search) {
+                        $categoryQuery->where('name', 'like', '%' . $search . '%');
+                    });
             });
         }
 
@@ -80,10 +82,10 @@ class HomeController extends Controller
         }
 
         // Pagination
-        $contents = $query->paginate(12);
-        
+        $contents = $query->paginate(9);
+
         // Ambil kategori yang dipilih
-        $selectedCategory = $request->filled('category') ? 
+        $selectedCategory = $request->filled('category') ?
             Category::find($request->category) : null;
 
         return view('home.daftar-isi', [
@@ -126,7 +128,11 @@ class HomeController extends Controller
 
     public function about(): View
     {
-        return view('home.about');
+        $categories = Category::all();
+
+        return view('home.about', [
+            'categories' => $categories,
+        ]);
     }
 
     public function contributors(): View

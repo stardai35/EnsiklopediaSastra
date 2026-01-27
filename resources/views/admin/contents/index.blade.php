@@ -41,6 +41,8 @@
                     <select name="sort" id="sort" class="form-select">
                         <option value="newest" {{ ($sortBy ?? 'newest') === 'newest' ? 'selected' : '' }}>Terbaru</option>
                         <option value="oldest" {{ ($sortBy ?? '') === 'oldest' ? 'selected' : '' }}>Terlama</option>
+                        <option value="title_az" {{ ($sortBy ?? '') === 'title_az' ? 'selected' : '' }}>Judul A-Z</option>
+                        <option value="title_za" {{ ($sortBy ?? '') === 'title_za' ? 'selected' : '' }}>Judul Z-A</option>
                     </select>
                 </div>
 
@@ -66,24 +68,24 @@
         <div class="card-body">
             @if($contents->count() > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="width: 100%; table-layout: auto;">
                         <thead>
                             <tr>
                                 <th style="width: 5%;">ID</th>
-                                <th style="width: 25%;">Judul</th>
-                                <th style="width: 20%;">Kategori</th>
+                                <th style="width: auto;">Judul</th>
+                                <th style="width: 12%;">Kategori</th>
                                 <th style="width: 10%;">Tahun</th>
-                                <th style="width: 10%;">Gambar</th>
-                                <th style="width: 30%;">Aksi</th>
+                                <th style="width: 8%;">Gambar</th>
+                                <th style="width: 25%; text-align: right;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($contents as $content)
                                 <tr>
                                     <td>#{{ $content->id }}</td>
-                                    <td>
-                                        <strong>{{ $content->title }}</strong><br>
-                                        <small style="color: #999;">{{ Str::limit($content->text, 50, '...') }}</small>
+                                    <td style="word-wrap: break-word;">
+                                        <strong style="display: block; margin-bottom: 0.25rem;">{{ $content->title }}</strong>
+                                        <small style="color: #999; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; word-wrap: break-word;">{!! strip_tags($content->text) !!}</small>
                                     </td>
                                     <td>
                                         <span class="badge badge-primary">{{ $content->category->name }}</span>
@@ -96,20 +98,22 @@
                                             <span class="badge bg-secondary">0</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('admin.contents.edit', $content) }}" class="btn btn-sm btn-warning" title="Edit">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        <a href="{{ route('detail', $content->slug) }}" target="_blank" class="btn btn-sm btn-info" title="Lihat">
-                                            <i class="fas fa-eye"></i> Lihat
-                                        </a>
-                                        <form action="{{ route('admin.contents.destroy', $content) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
-                                                <i class="fas fa-trash"></i> Hapus
-                                            </button>
-                                        </form>
+                                    <td style="white-space: nowrap; text-align: right;">
+                                        <div style="display: flex; gap: 0.25rem; justify-content: flex-end; flex-wrap: wrap;">
+                                            <a href="{{ route('admin.contents.edit', $content) }}" class="btn btn-sm btn-warning" title="Edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="{{ route('detail', $content->slug) }}" target="_blank" class="btn btn-sm btn-info" title="Lihat">
+                                                <i class="fas fa-eye"></i> Lihat
+                                            </a>
+                                            <form action="{{ route('admin.contents.destroy', $content) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
+                                                    <i class="fas fa-trash"></i> Hapus
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -181,4 +185,31 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('extra-css')
+<style>
+    .table-responsive {
+        overflow-x: auto;
+        width: 100%;
+    }
+    
+    .table {
+        width: 100% !important;
+        margin-bottom: 0;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .table td strong {
+        word-break: break-word;
+    }
+    
+    .table thead th:last-child,
+    .table tbody td:last-child {
+        text-align: right;
+    }
+</style>
 @endsection

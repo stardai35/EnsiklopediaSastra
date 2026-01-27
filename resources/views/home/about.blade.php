@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <div style="background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%); color: white; padding: 3rem 2rem; text-align: center;">
+    <div class="purple-gradient-bg" style="color: white; padding: 3rem 2rem; text-align: center;">
         <div class="container">
             <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Tentang Ensiklopedia Sastra Indonesia</h1>
             <p style="font-size: 1.2rem; opacity: 0.9;">Prakata dan Deskripsi Ensiklopedia Sastra Indonesia</p>
@@ -84,44 +84,96 @@ Dalam edisi kedua ini perlu dikemukakan bahwa ensklopedia sastra ini bukan semat
                     <p>
                        Sejalan dengan perubahan pumpunan dan orientasi penyusunan, kategori lema yang dikemukakan dalam ensiklopedia edisi kedua ini mengalami sedikit perubahan. Lingkup permasalahan yang selanjutnya dikelompokkan menjadi beberapa kategori lema itu mencakup kategori yang dulu sudah ada, yakni pengarang, karya sastra, media penyebar sastra, dan hadiah/sayembara. Pada edisi ini peristiwa sastra diubah menjadi gejala sastra. Penerjemah juga tidak lagi menjadi kategori tersendiri dalam edisi kedua ini. Ensiklopedia Sastra Indonesia memuat 580 lema yang dikategorikan ke dalam 6 kelompok lema, yaitu pengarang sejumlah 246, karya sastra sejumlah 217, media penyebar/penerbit sastra sejumlah 52, hadiah/sayembara sastra sejumlah 14, lembaga sastra sejumlah 31, dan gejala sastra sejumlah 20. Setiap kelompok lema disusun secara alabetis. 
                     </p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-user-tie"></i> Pengarang
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Biografi dan karya para pengarang ternama</p>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-book"></i> Karya Sastra
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Novel, puisi, cerpen, dan drama Indonesia</p>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-newspaper"></i> Media Penyebar
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Penerbit dan majalah sastra Indonesia</p>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-trophy"></i> Penghargaan
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Hadiah dan sayembara sastra Indonesia</p>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-building"></i> Lembaga Sastra
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Organisasi dan institusi sastra Indonesia</p>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <h5 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                                <i class="fas fa-lightbulb"></i> Gejala Sastra
-                            </h5>
-                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Tren dan fenomena dalam sastra Indonesia</p>
-                        </div>
+                    
+                    <!-- Category Cards Section -->
+                    <div class="category-lema-section" style="margin: 3rem 0;">
+                        @php
+                            $categoryDescriptions = [
+                                'pengarang' => 'Kategori ini memuat lema tentang pengarang, yang mencakup tanggal lahir dan wafat, perjalanan karier, dan karya-karyanya. Komentar kritis juga disertakan untuk lema pengarang.',
+                                'karya-sastra' => 'Kategori ini memuat lema tentang karya sastra, yang mencakup informasi terkait publikasi dan isi karya sastra, serta komentar kritis.',
+                                'media-penyebar-penerbit-sastra' => 'Media penyebar/penerbit sastra memegang peran penting dalam penyebaran sastra. Melalui media seperti surat kabar, majalah, dan penerbit, pengarang dan karya sastra menjadi dikenal oleh masyarakat luas.',
+                                'lembaga-sastra' => 'Lembaga sastra berperan dalam pengembangan sastra. Lembaga-lembaga ini dapat berupa organisasi pemerintah atau swasta yang berfungsi sebagai patron sastra, dengan berbagai ideologi dan tujuan yang berbeda.',
+                                'hadiah-sayembara-sastra' => 'Hadiah dan sayembara sastra merupakan bentuk patronase sastra yang memberikan motivasi kepada pengarang untuk terus berkarya. Kategori ini memuat informasi tentang berbagai penghargaan dan kompetisi sastra yang berkontribusi pada perkembangan sastra Indonesia.',
+                                'gejala-sastra' => 'Kategori gejala sastra mencakup kehidupan sastra dan peristiwa-peristiwa yang terjadi di dalamnya, termasuk keterlibatan pengarang, pembaca, kritikus, dan akademisi. Isu-isu seperti pelarangan, pengadilan sastra, dan istilah-istilah tertentu dikelompokkan dalam kategori ini.'
+                            ];
+                        @endphp
+                        
+                        @foreach($categories as $category)
+                            <div class="category-lema-card" style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); margin-bottom: 2rem; overflow: hidden; display: flex; flex-direction: row; min-height: 200px; border: 1px solid #e5e7eb;">
+                                <!-- Image Left Side -->
+                                <div class="category-image-collage" style="width: 220px; min-width: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                                    @php
+                                        // Category images from home page
+                                        $categoryImages = [
+                                            1 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/pengarang.png',
+                                            2 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/hadiah-sastra.png',
+                                            3 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/karyasastra.png',
+                                            4 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/lembaga-sastra.png',
+                                            5 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/media-sastra.png',
+                                            6 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/gejala-sastra.png',
+                                        ];
+                                    @endphp
+                                    
+                                    @if(isset($categoryImages[$category->id]))
+                                        <img src="{{ $categoryImages[$category->id] }}" 
+                                             alt="{{ $category->name }}" 
+                                             style="width: 100%; height: 180px; object-fit: contain; border-radius: 4px; background: #f8f9fa;">
+                                    @else
+                                        <div style="width: 100%; height: 180px; background: #e5e7eb; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
+                                            <i class="fas fa-image" style="font-size: 2rem;"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                                
+                                <!-- Text Content Right Side -->
+                                <div class="category-content-text" style="flex: 1; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div>
+                                        <h3 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">
+                                            {{ $category->name }}
+                                        </h3>
+                                        <p style="color: #4b5563; line-height: 1.7; font-size: 0.95rem; margin-bottom: 1rem;">
+                                            @php
+                                                $description = $categoryDescriptions[$category->slug] ?? null;
+                                                if (!$description) {
+                                                    // Try to match by category name (case-insensitive)
+                                                    $nameLower = strtolower($category->name);
+                                                    foreach ($categoryDescriptions as $key => $desc) {
+                                                        if (str_contains($nameLower, str_replace('-', ' ', $key)) || str_contains($key, str_replace(' ', '-', $nameLower))) {
+                                                            $description = $desc;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                echo $description ?? 'Kategori ini memuat informasi terkait ' . strtolower($category->name) . '.';
+                                            @endphp
+                                        </p>
+                                    </div>
+                                    <div style="text-align: right; margin-top: auto;">
+                                        <a href="{{ route('category', $category->slug) }}" 
+                                           style="color: #2563eb; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: color 0.2s;">
+                                            Lihat entri →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
+                    
+                    <style>
+                        .category-lema-card a:hover {
+                            color: #1d4ed8 !important;
+                        }
+                        
+                        @media (max-width: 768px) {
+                            .category-lema-card {
+                                flex-direction: column !important;
+                            }
+                            .category-image-collage {
+                                width: 100% !important;
+                                min-width: 100% !important;
+                            }
+                        }
+                    </style>
 
                     <h2 id="sejarah" style="color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
                         Sejarah Sastra Indonesia

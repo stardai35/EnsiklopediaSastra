@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,7 @@
             top: 0;
             height: 100vh;
             width: var(--sidebar-width);
-            background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%);
+            background: var(--primary-color);
             padding: 2rem 0;
             overflow-y: auto;
             z-index: 1000;
@@ -283,9 +284,10 @@
         .image-preview {
             max-width: 200px;
             max-height: 200px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 8px;
             margin: 1rem 0;
+            background: #f8f9fa;
         }
 
         .image-gallery {
@@ -305,7 +307,8 @@
         .image-item img {
             width: 100%;
             height: 150px;
-            object-fit: cover;
+            object-fit: contain;
+            background: #f8f9fa;
         }
 
         .image-delete-btn {
@@ -351,29 +354,33 @@
     </style>
     @yield('extra-css')
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-                <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
-         style="max-width: 50px; height: auto;">
+            <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+                style="max-width: 50px; height: auto;">
             <h5>ADMIN</h5>
             <small style="opacity: 0.8;">Ensiklopedia Sastra</small>
         </div>
 
         <ul class="sidebar-menu">
             <li>
-                <a href="{{ route('admin.dashboard') }}" class="@if(request()->routeIs('admin.dashboard')) active @endif">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="@if(request()->routeIs('admin.dashboard')) active @endif">
                     <i class="fas fa-chart-line"></i> Dashboard
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.contents.index') }}" class="@if(request()->routeIs('admin.contents.*')) active @endif">
+                <a href="{{ route('admin.contents.index') }}"
+                    class="@if(request()->routeIs('admin.contents.*')) active @endif">
                     <i class="fas fa-file-alt"></i> Kelola Konten
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.categories.index') }}" class="@if(request()->routeIs('admin.categories.*')) active @endif">
+                <a href="{{ route('admin.categories.index') }}"
+                    class="@if(request()->routeIs('admin.categories.*')) active @endif">
                     <i class="fas fa-folder"></i> Kelola Kategori
                 </a>
             </li>
@@ -383,7 +390,7 @@
                 </a>
             </li>
             <li style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2);">
-                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0;">
                     @csrf
                     <button type="submit" class="logout-btn" style="width: 100%; text-align: left; border-radius: 0;">
                         <i class="fas fa-sign-out-alt"></i> Logout
@@ -428,4 +435,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('extra-js')
 </body>
+
 </html>

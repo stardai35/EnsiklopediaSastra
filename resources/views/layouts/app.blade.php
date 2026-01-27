@@ -22,13 +22,25 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
+            margin: 0;
+            padding: 0;
         }
 
         /* Navigation */
+        .navbar-wrapper {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
         .navbar {
             background: #692D91;
             padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            position: relative;
+            margin: 0;
+            width: 100%;
         }
 
         .navbar-brand {
@@ -58,27 +70,75 @@
         .search-box {
             display: flex;
             gap: 0;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-box .search-icon-wrapper {
+            position: absolute;
+            left: 12px;
+            color: #9ca3af;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .search-box input {
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px 0 0 4px;
+            border: 1px solid var(--primary-color);
+            padding: 8px 15px 8px 40px;
+            border-radius: 6px 0 0 6px;
             width: 250px;
+            max-width: 250px;
+            outline: none;
+            background: white;
+            font-size: 0.9rem;
+            color: #333;
+            flex: 0 0 auto;
+        }
+        
+        @media (max-width: 1200px) {
+            .search-box input {
+                width: 200px;
+                max-width: 200px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .search-box input {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(105, 45, 145, 0.1);
+        }
+
+        .search-box input::placeholder {
+            color: #9ca3af;
         }
 
         .search-box button {
-            background: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 0 4px 4px 0;
-            color: var(--primary-color);
+            background: #4f246c;
+            border: 1px solid var(--primary-color);
+            border-left: none;
+            padding: 8px 20px;
+            border-radius: 0 6px 6px 0;
+            color: white;
             cursor: pointer;
             transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .search-box button:hover {
-            background: #f0f0f0;
+            background: rgb(111, 43, 148);
+            border-color: rgb(111, 43, 148);
         }
 
         /* Hero Section */
@@ -118,7 +178,7 @@
             gap: 4rem;
         }
 
-        
+
         .hero-logo {
             flex: 1;
         }
@@ -127,7 +187,7 @@
             width: 100%;
             max-width: 380px;
         }
-   
+
         .hero-content {
             flex: 1.2;
         }
@@ -199,7 +259,7 @@
         }
 
         .category-card-img {
-            height: 150px;
+            height: 250px;
             background: #692D91;
             display: flex;
             align-items: center;
@@ -255,7 +315,8 @@
         .person-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #f8f9fa;
         }
 
         .person-name {
@@ -317,9 +378,43 @@
             border-color: var(--primary-color);
         }
 
+        /* Purple Background with Noise Texture */
+        .purple-gradient-bg {
+            background: 
+                url('{{ asset("Noise__Texture.png") }}'),
+                var(--primary-color);
+            background-blend-mode: overlay;
+            background-size: contain, 100% 100%;
+            background-position: center, center;
+            background-repeat: repeat, no-repeat;
+            position: relative;
+        }
+
+        .purple-gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('{{ asset("Noise__Texture.png") }}');
+            background-size: contain;
+            background-repeat: repeat;
+            background-position: center;
+            opacity: 0.3;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .purple-gradient-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #692D91 100%);
+            background: var(--primary-color);
             color: white;
             padding: 3rem 0 1rem;
             margin-top: 4rem;
@@ -404,6 +499,27 @@
         }
 
         /* Responsive */
+        .navbar .search-box-mobile {
+            display: none;
+        }
+        
+        @media (max-width: 991px) {
+            .navbar .container-fluid>div:first-child .search-box {
+                display: none;
+            }
+            
+            .navbar .search-box-mobile {
+                display: block;
+                width: 100%;
+                margin: 0.75rem 0;
+            }
+            
+            .navbar .search-box-mobile .search-box {
+                display: flex;
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-section h1 {
                 font-size: 2rem;
@@ -413,8 +529,42 @@
                 font-size: 1rem;
             }
 
-            .search-box {
-                display: none;
+            .navbar-wrapper {
+                padding: 0;
+            }
+
+            .navbar {
+                padding: 0.75rem 0;
+                border-radius: 0;
+            }
+
+            .navbar .container-fluid>div:first-child {
+                width: 100%;
+            }
+            
+            .navbar-brand {
+                margin-right: auto;
+            }
+
+            .navbar .search-box-mobile {
+                width: 100%;
+                margin-top: 0.75rem;
+            }
+
+            .navbar .search-box-mobile .search-box {
+                width: 100%;
+            }
+
+            .navbar .search-box-mobile input {
+                flex: 1;
+                min-width: 0;
+                font-size: 0.85rem;
+                padding: 8px 12px 8px 35px;
+            }
+
+            .navbar .search-box-mobile button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
             }
 
             .stats-section {
@@ -471,23 +621,110 @@
                 font-size: 1.2rem;
             }
         }
+
+        /* Image Loading Animation */
+        .image-loading-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .image-loading-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+            border-radius: inherit;
+            z-index: 1;
+        }
+
+        .image-loading-skeleton::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(105, 45, 145, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        img.loading-image {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        img.loaded-image {
+            opacity: 1;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
     @yield('extra-css')
 </head>
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
-                    style="max-width: 50px; height: auto;">
-            </a>
+    <div class="navbar-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+            <div class="d-flex align-items-center flex-wrap" style="flex: 1;">
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    <img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+                        style="max-width: 50px; height: auto;">
+                </a>
+                @if(!request()->routeIs('home'))
+                    <div class="ms-3 d-none d-lg-block">
+                        <form action="{{ route('daftar-isi') }}" method="GET" class="search-box">
+                            <span class="search-icon-wrapper">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" name="search" placeholder="Masukan Pencarian..."
+                                value="{{ request('search') }}">
+                            <button type="submit">CARI</button>
+                        </form>
+                    </div>
+                @endif
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                @if(!request()->routeIs('home'))
+                <div class="search-box-mobile">
+                    <form action="{{ route('daftar-isi') }}" method="GET" class="search-box" style="width: 100%;">
+                        <span class="search-icon-wrapper">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" name="search" placeholder="Masukan Pencarian..."
+                            value="{{ request('search') }}">
+                        <button type="submit">CARI</button>
+                    </form>
+                </div>
+                @endif
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('daftar-isi') }}">Daftar Isi</a></li>
@@ -495,8 +732,8 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">Tentang</a></li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- Main Content -->
     @yield('content')
@@ -587,6 +824,22 @@
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
+            });
+        });
+
+        // Image Loading Animation - Handle images that load after DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img.lazy-image');
+            
+            lazyImages.forEach(function(img) {
+                // If image is already loaded
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.style.opacity = '1';
+                    const skeleton = img.previousElementSibling;
+                    if (skeleton && skeleton.classList.contains('image-loading-skeleton')) {
+                        skeleton.style.display = 'none';
+                    }
+                }
             });
         });
     </script>

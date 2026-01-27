@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Category Header -->
-    <div style="background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%); color: white; padding: 2rem;">
+    <div class="purple-gradient-bg" style="color: white; padding: 2rem;">
         <div class="container">
             <h1>{{ $category->name }}</h1>
             <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Jelajahi semua konten dalam kategori ini</p>
@@ -24,19 +24,22 @@
         <div class="row">
             @forelse($contents as $content)
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card category-card">
-                        <div class="category-card-img">
+                    <div class="card category-card" style="height: 100%;">
+                        <div class="category-card-img" style="position: relative;">
                             @if($content->images->first())
-                                <img src="{{ asset('storage/' . $content->images->first()->path) }}" alt="{{ $content->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+                                <img src="{{ asset('storage/' . $content->images->first()->path) }}" alt="{{ $content->title }}" class="lazy-image"
+                                    style="width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
                             @else
                                 <i class="fas fa-file-alt"></i>
                             @endif
                         </div>
-                        <div class="category-card-body">
+                        <div class="category-card-body" style="display: flex; flex-direction: column; height: 100%;">
                             <h5 class="category-card-title">{{ $content->title }}</h5>
                             <p class="category-card-text"><strong>Tahun:</strong> {{ $content->year }}</p>
-                            <p class="category-card-text">{{ Str::limit($content->text, 100, '...') }}</p>
-                            <a href="{{ route('detail', $content->slug) }}" class="btn-primary" style="display: block; margin-top: 1rem;">
+                            <div class="category-card-text" style="line-height: 1.5; max-height: 3em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; margin-bottom: 1rem;">{!! $content->text !!}</div>
+                            <a href="{{ route('detail', $content->slug) }}" class="btn-primary"
+                                style="display: block; margin-top: auto;">
                                 Baca Selengkapnya
                             </a>
                         </div>

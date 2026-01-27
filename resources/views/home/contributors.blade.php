@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <div style="background: linear-gradient(135deg, var(--primary-color) 0%, #a78bfa 100%); color: white; padding: 3rem 2rem; text-align: center;">
+    <div class="purple-gradient-bg" style="color: white; padding: 3rem 2rem; text-align: center;">
         <div class="container">
             <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Tim Penyusun</h1>
             <p style="font-size: 1.2rem; opacity: 0.9;">Tim yang menyusun dan mengelola konten Ensiklopedia Sastra Indonesia</p>

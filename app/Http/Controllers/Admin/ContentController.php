@@ -41,16 +41,31 @@ class ContentController extends Controller
 
         // Filter by search
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('text', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhereHas('category', function($categoryQuery) use ($search) {
+                      $categoryQuery->where('name', 'like', '%' . $search . '%');
+                  });
+            });
         }
 
         // Sort
         $sortBy = $request->input('sort', 'newest');
-        if ($sortBy === 'oldest') {
-            $query->oldest();
-        } else {
-            $query->latest();
+        switch ($sortBy) {
+            case 'oldest':
+                $query->orderBy('id', 'asc');
+                break;
+            case 'title_az':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'title_za':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'newest':
+            default:
+                $query->orderBy('id', 'desc');
+                break;
         }
 
         $contents = $query->paginate(15);

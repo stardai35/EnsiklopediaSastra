@@ -88,7 +88,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <small class="text-muted">
-                        <i class="fas fa-info-circle"></i> Gunakan editor untuk formatting teks, insert gambar, membuat list, dll
+                        <i class="fas fa-info-circle"></i> Gunakan editor untuk formatting teks, membuat list, dll
                     </small>
                 </div>
 
@@ -101,11 +101,12 @@
                         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
                             @foreach($content->images as $image)
                                 <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->alt_text }}" style="width: 100%; height: 120px; object-fit: cover;">
+                                    <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 120px; z-index: 1;"></div>
+                                    <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->alt_text }}" class="lazy-image" style="width: 100%; height: 120px; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
                                     <button 
                                         type="button" 
                                         class="btn btn-danger btn-sm" 
-                                        style="position: absolute; top: 5px; right: 5px;"
+                                        style="position: absolute; top: 5px; right: 5px; z-index: 3;"
                                         onclick="deleteImage({{ $image->id }}, '{{ $image->alt_text }}')"
                                     >
                                         <i class="fas fa-trash"></i>
@@ -177,17 +178,10 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture', 'hr']],
+                    ['insert', ['link', 'hr']],
                     ['view', ['fullscreen', 'codeview']],
                     ['help', ['help']]
-                ],
-                popover: {
-                    image: [
-                        ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                        ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                        ['remove', ['removeMedia']]
-                    ]
-                }
+                ]
             });
         });
 
