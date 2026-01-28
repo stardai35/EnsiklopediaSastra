@@ -238,15 +238,13 @@
             });
         </script>
 
-        <section style="padding:5rem 0;background:#fff">
+        <section style="padding:1rem 0;background:#fff">
             <div class="container">
                 <div class="row align-items-center gy-5">
 
                     <!-- LEFT FAQ -->
                     <div class="col-lg-6">
-                        <h2 style="font-size:2rem;font-weight:700;margin-bottom:2.5rem;color:#111827">
-                            Pertanyaan yang Sering Ditanyakan
-                        </h2>
+                                  <h2 class="section-title" style="margin: 0;"> Pertanyaan yang Sering Ditanyakan</h2>
 
                         <div style="border-top:1px solid #e5e7eb">
 
@@ -326,9 +324,9 @@
                     <!-- RIGHT VISUAL -->
                     <div class="col-lg-6 d-none d-lg-flex justify-content-center">
                         <div
-                            style="width:300px;height:300px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#9333ea);display:flex;align-items:center;justify-content:center">
+                            style="width:300px;height:300px;border-radius:50%;background:#692D91; display:flex;align-items:center;justify-content:center">
                             <div
-                                style="width:200px;height:200px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:6rem;font-weight:700;color:#7c3aed">
+                                style="width:200px;height:200px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:6rem;font-weight:700;color:linear-gradient(135deg,#692D91,#ec4899);">
                                 ?
                             </div>
                         </div>

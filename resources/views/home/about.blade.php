@@ -16,26 +16,26 @@
         <div class="row">
             <div class="col-lg-3 d-none d-lg-block">
                 <!-- Sidebar -->
-                <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 20px;">
-                    <h5 style="color: var(--primary-color); margin-bottom: 1.5rem;">Daftar Isi</h5>
+                <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 100px;">
+                  <h2 class="section-title" style="margin-bottom: 1.5rem;"> Daftar Isi </h2>
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin-bottom: 1rem;">
-                            <a href="#pengertian" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
-                                <i class="fas fa-angle-right"></i> Pengertian
+                            <a href="#prakata" style="color: black; text-decoration: none; font-weight: 500;">
+                                <i class="fas fa-angle-right"></i> Prakata
                             </a>
                         </li>
                         <li style="margin-bottom: 1rem;">
-                            <a href="#tujuan" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
-                                <i class="fas fa-angle-right"></i> Tujuan & Manfaat
+                            <a href="#timpenyusun" style="color: black; text-decoration: none; font-weight: 500;">
+                                <i class="fas fa-angle-right"></i> Tim Penyusun Edisi II
                             </a>
                         </li>
                         <li style="margin-bottom: 1rem;">
-                            <a href="#ruang-lingkup" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
-                                <i class="fas fa-angle-right"></i> Ruang Lingkup
+                            <a href="#kategorilema" style="color: black; text-decoration: none; font-weight: 500;">
+                                <i class="fas fa-angle-right"></i> Kategori Lema
                             </a>
                         </li>
                         <li style="margin-bottom: 1rem;">
-                            <a href="#sejarah" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
+                            <a href="#sejarah" style="color: black; text-decoration: none; font-weight: 500;">
                                 <i class="fas fa-angle-right"></i> Sejarah
                             </a>
                         </li>
@@ -45,8 +45,8 @@
 
             <div class="col-lg-9">
                 <!-- Main Content -->
-                <article style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8;">
-                    <h2 id="pengertian" style="color: var(--primary-color); margin-top: 0; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
+                <article style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; text-align: justify;">
+                    <h2 id="prakata" style="color: black; margin-top: 0; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
                         Prakata Kepala Badan Pengembangan dan Pembinaan Bahasa
                     </h2>
                     <p>
@@ -62,7 +62,7 @@ Dalam kesempatan ini juga, kami ingin menyampaikan ucapan terima kasih kepada Sd
 Kepala Badan Bahasa
                     </p>
 
-                    <h2 id="tujuan" style="color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
+                    <h2 id="timpenyusun" style="color: black; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
                         TIM PENYUSUN EDISI II
                     </h2>
                     <p>
@@ -78,7 +78,7 @@ Dalam edisi kedua ini perlu dikemukakan bahwa ensklopedia sastra ini bukan semat
                         <li style="margin-bottom: 0.8rem;">Meningkatkan apresiasi masyarakat terhadap sastra nasional</li>
                     </ul>
 
-                    <h2 id="ruang-lingkup" style="color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
+                    <h2 id="kategorilema" style="color: black; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
                         Kategori Lema
                     </h2>
                     <p>
@@ -175,7 +175,7 @@ Dalam edisi kedua ini perlu dikemukakan bahwa ensklopedia sastra ini bukan semat
                         }
                     </style>
 
-                    <h2 id="sejarah" style="color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
+                    <h2 id="sejarah" style="color: black; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f0f0f0;">
                         Sejarah Sastra Indonesia
                     </h2>
                     <p>

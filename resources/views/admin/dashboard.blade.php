@@ -7,32 +7,32 @@
 @section('content')
     <!-- Stats Row -->
     <div class="row mb-4">
-        <div class="col-md-3 mb-3">
+        <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="stat-number">{{ $totalContents }}</div>
                 <div class="stat-label">Total Konten</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-folder"></i></div>
                 <div class="stat-number">{{ $totalCategories }}</div>
                 <div class="stat-label">Kategori</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-image"></i></div>
                 <div class="stat-number">{{ $totalImages }}</div>
                 <div class="stat-label">Total Gambar</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                <div class="stat-number">{{ $totalContents > 0 ? '100%' : '0%' }}</div>
-                <div class="stat-label">Status</div>
+                <div class="stat-icon"><i class="fas fa-search"></i></div>
+                <div class="stat-number">{{ $totalContents }}</div>
+                <div class="stat-label">Data Pencarian</div>
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@
 
     <!-- Quick Actions -->
     <div class="row mt-4">
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-lightning-bolt"></i> Aksi Cepat
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-info-circle"></i> Informasi

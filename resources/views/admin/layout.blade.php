@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #7c3aed;
+            --primary-color: #692D91;
             --sidebar-width: 250px;
         }
 
@@ -170,7 +170,7 @@
         }
 
         .btn-primary:hover {
-            background: #6d28d9;
+            background: #692D91;
             transform: translateY(-2px);
         }
 

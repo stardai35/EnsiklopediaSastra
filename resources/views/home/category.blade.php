@@ -4,9 +4,9 @@
 
 @section('content')
     <!-- Category Header -->
-    <div class="purple-gradient-bg" style="color: white; padding: 2rem;">
+    <div class="purple-gradient-bg" style="color: white; padding: 2rem;text-align: center;">
         <div class="container">
-            <h1>{{ $category->name }}</h1>
+            <h1>Jelajahi {{ $category->name }}</h1>
             <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Jelajahi semua konten dalam kategori ini</p>
         </div>
     </div>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #7c3aed;
+            --primary-color: #692D91;
         }
 
         * {
@@ -19,7 +19,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            background: #692D91;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -40,7 +40,7 @@
         }
 
         .login-header {
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            background: #692D91;
             color: white;
             padding: 3rem 2rem;
             text-align: center;
@@ -87,7 +87,7 @@
         }
 
         .btn-login {
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            background: #692D91;
             color: white;
             border: none;
             padding: 1rem;
@@ -150,7 +150,8 @@
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h1><i class="fas fa-book-open"></i> ADMIN</h1>
+                <h1><img src="https://vicious-purple-krocduknct.edgeone.app/logo-logo%20template_badan%20Bahasa_20205-01.png"
+                        style="max-width: 50px; height: auto;"><br>ADMIN</h1>
                 <p>Ensiklopedia Sastra Indonesia</p>
             </div>
 

@@ -31,6 +31,9 @@
             padding: 0;
             margin: 0;
             width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
 
         .navbar {
@@ -41,6 +44,15 @@
             position: relative;
             margin: 0;
             width: 100%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.navbar-scrolled {
+            padding: 0.5rem 0;
+            background: rgba(105, 45, 145, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 9px 32px rgba(105, 45, 145, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .navbar-brand {
@@ -60,11 +72,29 @@
             color: white !important;
             margin: 0 10px;
             font-weight: 500;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0 !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ec4899, #a78bfa);
+            transition: width 0.3s ease;
         }
 
         .navbar-nav .nav-link:hover {
-            opacity: 0.8;
+            opacity: 1;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
         }
 
         .search-box {
@@ -141,7 +171,7 @@
             border-color: rgb(111, 43, 148);
         }
 
-        /* Hero Section */
+        
         .hero-section {
             background: #ffffff;
             padding: 0.2rem 0;
@@ -160,7 +190,6 @@
             opacity: 0.95;
         }
 
-        /* Cards */
         .category-card {
             border: none;
             border-radius: 10px;
@@ -241,7 +270,6 @@
             cursor: pointer;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .hero-container {
                 flex-direction: column;
@@ -538,6 +566,13 @@
                 border-radius: 0;
             }
 
+            .navbar.navbar-floating {
+                width: calc(100% - 20px);
+                top: 10px;
+                border-radius: 10px;
+                padding: 0.5rem 1rem;
+            }
+
             .navbar .container-fluid>div:first-child {
                 width: 100%;
             }
@@ -582,7 +617,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Back to Top Button */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -622,7 +656,6 @@
             }
         }
 
-        /* Image Loading Animation */
         .image-loading-container {
             position: relative;
             display: inline-block;
@@ -801,7 +834,7 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
+   
     <button class="back-to-top" id="backToTop" title="Kembali ke atas">
         <i class="fas fa-chevron-up"></i>
     </button>
@@ -809,7 +842,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Back to Top Button
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        const navbarWrapper = document.querySelector('.navbar-wrapper');
+        const body = document.body;
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Efek scrolled (background lebih gelap, padding lebih kecil)
+            if (scrollTop > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.remove('navbar-floating');
+                body.classList.remove('navbar-floating-active');
+            }
+
+            // Efek floating (navbar mengambang di tengah)
+            if (scrollTop > 300) {
+                if (!navbar.classList.contains('navbar-floating')) {
+                    navbar.classList.add('navbar-floating');
+                    body.classList.add('navbar-floating-active');
+                }
+            } else if (scrollTop <= 50) {
+                navbar.classList.remove('navbar-floating');
+                body.classList.remove('navbar-floating-active');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+       
         const backToTopBtn = document.getElementById('backToTop');
 
         window.addEventListener('scroll', function () {
@@ -827,12 +891,12 @@
             });
         });
 
-        // Image Loading Animation - Handle images that load after DOM is ready
+
         document.addEventListener('DOMContentLoaded', function() {
             const lazyImages = document.querySelectorAll('img.lazy-image');
             
             lazyImages.forEach(function(img) {
-                // If image is already loaded
+
                 if (img.complete && img.naturalHeight !== 0) {
                     img.style.opacity = '1';
                     const skeleton = img.previousElementSibling;

@@ -8,9 +8,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ImageUploadController;
 
 
-
-
-
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->middleware('auth')->name('upload-image');
 
 // Redirect old /login to /admin/login for backward compatibility

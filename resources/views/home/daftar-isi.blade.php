@@ -3,13 +3,7 @@
 @section('title', 'Daftar Isi - Ensiklopedia Sastra Indonesia')
 
 @section('content')
-    <!-- Header -->
-    <div class="purple-gradient-bg" style="color: white; padding: 2rem;">
-        <div class="container">
-            <h1>Daftar Isi</h1>
-            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Jelajahi semua koleksi sastra Indonesia</p>
-        </div>
-    </div>
+
 
     <div class="container" style="margin-top: 2rem;">
         <!-- Breadcrumb -->
@@ -19,7 +13,11 @@
                 <li class="breadcrumb-item active">Daftar Isi</li>
             </ol>
         </nav>
-
+    <!-- Header -->
+        <div class="container">
+            <h1>Daftar Isi</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Jelajahi semua koleksi sastra Indonesia</p>
+        </div>
         <!-- Filter Section - Centered Above Results -->
         <div style="margin-bottom: 2rem;">
             <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -115,7 +113,7 @@
                             <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }} hasil)</span>
                         </h2>
                     @else
-                        <h2 style="margin: 0; color: var(--primary-color);">
+                        <h2 style="margin: 0; color: BLACK;">
                             Semua Konten
                             <span style="color: #999; font-size: 0.9rem;">({{ $contents->total() }}
                                 hasil)</span>
