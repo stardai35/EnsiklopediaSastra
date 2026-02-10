@@ -126,41 +126,57 @@
                     <nav role="navigation" aria-label="Pagination Navigation" style="margin-top: 2rem;">
                         <ul style="gap: 0.5rem; list-style: none; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
                             {{-- Previous Page Link --}}
-                            @if ($contents->onFirstPage())
+                            @if ($contents->currentPage() > 1)
+                                <li>
+                                    <a href="{{ $contents->previousPageUrl() }}" rel="prev" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            @else
                                 <li style="opacity: 0.5;">
                                     <span style="background: #f0f0f0; color: #ccc; border: 1px solid #ddd; padding: 0.6rem 1rem; border-radius: 6px; cursor: not-allowed; display: inline-flex; align-items: center;">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                 </li>
-                            @else
-                                <li>
-                                    <a href="{{ $contents->previousPageUrl() }}" rel="prev" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='var(--primary-color)';">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </a>
-                                </li>
                             @endif
 
-                            {{-- Page Links --}}
-                            @foreach ($contents->getUrlRange(1, $contents->lastPage()) as $page => $url)
-                                @if ($page == $contents->currentPage())
+                            {{-- First Page Link --}}
+                            @if ($contents->currentPage() > 3)
+                                <li>
+                                    <a href="{{ $contents->url(1) }}" style="background: white; color: #666; border: 1px solid #ddd; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; min-width: 2.5rem; text-align: center; text-decoration: none; display: inline-block;">1</a>
+                                </li>
+                                @if ($contents->currentPage() > 4)
+                                    <li><span style="padding: 0.6rem 0.9rem;">...</span></li>
+                                @endif
+                            @endif
+
+                            {{-- Page Links Around Current --}}
+                            @for ($i = max(1, $contents->currentPage() - 2); $i <= min($contents->lastPage(), $contents->currentPage() + 2); $i++)
+                                @if ($i == $contents->currentPage())
                                     <li>
-                                        <span style="background: var(--primary-color); color: white; border: 1px solid var(--primary-color); padding: 0.6rem 0.9rem; border-radius: 6px; font-weight: 600; min-width: 2.5rem; text-align: center; display: inline-block; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);">
-                                            {{ $page }}
-                                        </span>
+                                        <span style="background: var(--primary-color); color: white; border: 1px solid var(--primary-color); padding: 0.6rem 0.9rem; border-radius: 6px; font-weight: 600; min-width: 2.5rem; text-align: center; display: inline-block; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);">{{ $i }}</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $url }}" style="background: white; color: #666; border: 1px solid #ddd; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; min-width: 2.5rem; text-align: center; text-decoration: none; display: inline-block;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white'; this.style.borderColor='var(--primary-color)';" onmouseout="this.style.background='white'; this.style.color='#666'; this.style.borderColor='#ddd';">
-                                            {{ $page }}
-                                        </a>
+                                        <a href="{{ $contents->url($i) }}" style="background: white; color: #666; border: 1px solid #ddd; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; min-width: 2.5rem; text-align: center; text-decoration: none; display: inline-block;">{{ $i }}</a>
                                     </li>
                                 @endif
-                            @endforeach
+                            @endfor
+
+                            {{-- Last Page Link --}}
+                            @if ($contents->currentPage() < $contents->lastPage() - 2)
+                                @if ($contents->currentPage() < $contents->lastPage() - 3)
+                                    <li><span style="padding: 0.6rem 0.9rem;">...</span></li>
+                                @endif
+                                <li>
+                                    <a href="{{ $contents->url($contents->lastPage()) }}" style="background: white; color: #666; border: 1px solid #ddd; padding: 0.6rem 0.9rem; border-radius: 6px; cursor: pointer; min-width: 2.5rem; text-align: center; text-decoration: none; display: inline-block;">{{ $contents->lastPage() }}</a>
+                                </li>
+                            @endif
 
                             {{-- Next Page Link --}}
-                            @if ($contents->hasMorePages())
+                            @if ($contents->currentPage() < $contents->lastPage())
                                 <li>
-                                    <a href="{{ $contents->nextPageUrl() }}" rel="next" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;" onmouseover="this.style.background='var(--primary-color)'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='var(--primary-color)';">
+                                    <a href="{{ $contents->nextPageUrl() }}" rel="next" style="background: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center;">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </li>

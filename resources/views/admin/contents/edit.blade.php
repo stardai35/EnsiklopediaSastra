@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="year" class="form-label">
-                                <i class="fas fa-calendar"></i> Tahun <span style="color: red;">*</span>
+                                <i class="fas fa-calendar"></i> Tahun
                             </label>
                             <input 
                                 type="text" 
@@ -46,7 +46,6 @@
                                 class="form-control @error('year') is-invalid @enderror" 
                                 value="{{ old('year', $content->year) }}"
                                 placeholder="Contoh: 2025 atau 1990-2000"
-                                required
                             >
                             @error('year')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -59,15 +58,14 @@
                     <label for="title" class="form-label">
                         <i class="fas fa-heading"></i> Judul Konten <span style="color: red;">*</span>
                     </label>
-                    <input 
-                        type="text" 
+                            <input 
                         name="title" 
                         id="title" 
                         class="form-control @error('title') is-invalid @enderror" 
                         value="{{ old('title', $content->title) }}"
                         placeholder="Masukkan judul konten"
                         required
-                    >
+                            >
                     @error('title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

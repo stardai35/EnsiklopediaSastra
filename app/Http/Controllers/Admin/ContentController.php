@@ -93,7 +93,7 @@ class ContentController extends Controller
         $validated = $request->validate([
             'cat_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
-            'year' => 'required|string|max:50',
+            'year' => 'nullable|string|max:50',
             'text' => 'required|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -134,7 +134,7 @@ class ContentController extends Controller
         $validated = $request->validate([
             'cat_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
-            'year' => 'required|string|max:50',
+            'year' => 'nullable|string|max:50',
             'text' => 'required|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

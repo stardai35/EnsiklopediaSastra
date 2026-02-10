@@ -45,10 +45,10 @@
                                     @php
                                         $categoryImages = [
                                             1 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/pengarang.png',
-                                            2 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/hadiah-sastra.png',
-                                            3 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/karyasastra.png',
-                                            4 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/lembaga-sastra.png',
-                                            5 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/media-sastra.png',
+                                            2 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/karyasastra.png',
+                                            3 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/media-sastra.png',
+                                            4 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/hadiah-sastra.png',
+                                            5 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/lembaga-sastra.png',
                                             6 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/gejala-sastra.png',
                                         ];
                                     @endphp
@@ -61,12 +61,12 @@
                                     <h5>{{ $category->name }}</h5>
                                     @php
                                         $text = match ($category->slug) {
-                                            'pengarang' => 'Daftar tokoh pengarang sastra Indonesia beserta karya dan profil singkatnya.',
-                                            'karya-sastra' => 'Kumpulan karya sastra berupa novel, cerpen, puisi, dan naskah drama.',
-                                            'gejala-sastra' => 'Fenomena dan perkembangan sastra di berbagai periode.',
-                                            'lembaga-sastra' => 'Lorem Ipsum dolor sit amet, consectetur adipiscing elit.',
-                                            'media-penyebar-penerbit-sastra' => '2 Lorem Ipsum dolor sit amet, ',
-                                            'hadiah-sayembara-sastra' => '3 Lorem Ipsum dolor sit amet, '
+                                            'pengarang' => 'Daftar tokoh pengarang sastra Indonesia beserta karya dan profil singkatnya. Komentar kritis juga disertakan untuk lema pengarang.',
+                                            'karya-sastra' => 'Kategori ini memuat lema tentang karya sastra, yang mencakup informasi terkait publikasi dan isi karya sastra, serta komentar kritis.',
+                                            'gejala-sastra' => 'Kategori gejala sastra mencakup kehidupan sastra dan peristiwa-peristiwa yang terjadi di dalamnya, termasuk keterlibatan pengarang, pembaca, kritikus, dan akademisi. ',
+                                            'lembaga-sastra' => 'Lembaga-lembaga ini dapat berupa organisasi pemerintah atau swasta yang berfungsi sebagai patron sastra, dengan berbagai ideologi dan tujuan yang berbeda.',
+                                            'media-penyebar-penerbit-sastra' => 'Media penyebar sastra memegang peran penting dalam penyebaran sastra.',
+                                            'hadiah-sayembara-sastra' => 'Hadiah dan sayembara sastra merupakan bentuk patronase sastra yang memberikan motivasi kepada pengarang untuk terus berkarya.'
                                         };
                                     @endphp
 
@@ -257,8 +257,7 @@
                                 </button>
                                 <div id="faq1" class="collapse show">
                                     <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
-                                        Ensiklopedia Sastra Indonesia merupakan sumber informasi tepercaya
-                                        yang memuat data pengarang, karya, lembaga, dan perkembangan sastra Indonesia.
+                                        Ensiklopedia Sastra Indonesia merupakan sebuah wadah atau sarana informasi digital yang disusun oleh Badan Pengembangan dan Pembinaan Bahasa. Ensiklopedia ini berfungsi sebagai panduan luas untuk mempelajari berbagai hal yang berkaitan dengan dunia kesusastraan di Indonesia, mulai dari tokoh, karya, hingga sejarahnya.
                                     </p>
                                 </div>
                             </div>
@@ -272,8 +271,7 @@
                                 </button>
                                 <div id="faq2" class="collapse">
                                     <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
-                                        Untuk mendokumentasikan dan melestarikan kekayaan sastra Indonesia
-                                        agar mudah diakses oleh masyarakat luas.
+                                        dibuat untuk memudahkan masyarakat memahami sastra Indonesia, mendokumentasikan aset sastra nasional, serta menyediakan referensi resmi dan tepercaya.
                                     </p>
                                 </div>
                             </div>
@@ -313,7 +311,8 @@
                                 </button>
                                 <div id="faq5" class="collapse">
                                     <p style="margin-top:.8rem;font-size:.95rem;color:#4b5563;line-height:1.7">
-                                        Anda dapat menyampaikan masukan melalui halaman kontak yang tersedia di situs ini.
+                                       Melalui fitur Kontak, email badan.bahasa@kemdikbud.go.id
+, atau media sosial resmi Badan Bahasa.
                                     </p>
                                 </div>
                             </div>

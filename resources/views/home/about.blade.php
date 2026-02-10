@@ -106,10 +106,10 @@ Dalam edisi kedua ini perlu dikemukakan bahwa ensklopedia sastra ini bukan semat
                                         // Category images from home page
                                         $categoryImages = [
                                             1 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/pengarang.png',
-                                            2 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/hadiah-sastra.png',
-                                            3 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/karyasastra.png',
-                                            4 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/lembaga-sastra.png',
-                                            5 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/media-sastra.png',
+                                            2 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/karyasastra.png',
+                                            3 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/media-sastra.png',
+                                            4 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/hadiah-sastra.png',
+                                            5 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/lembaga-sastra.png',
                                             6 => 'https://joint-amaranth-okxmdkvefa.edgeone.app/gejala-sastra.png',
                                         ];
                                     @endphp
