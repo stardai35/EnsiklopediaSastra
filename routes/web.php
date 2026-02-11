@@ -5,10 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ImageUploadController;
-
-
-Route::post('/upload-image', [ImageUploadController::class, 'upload'])->middleware('auth')->name('upload-image');
 
 // Redirect old /login to /admin/login for backward compatibility
 Route::get('/login', function () {
@@ -25,8 +21,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [ContentController::class, 'dashboard'])->name('dashboard');
         Route::resource('contents', ContentController::class);
+        Route::post('contents/{content}/media', [ContentController::class, 'storeMedia'])->name('contents.media.store');
+        Route::put('contents/{content}/media/{media}', [ContentController::class, 'updateMedia'])->name('contents.media.update');
+        Route::delete('contents/{content}/media/{media}', [ContentController::class, 'deleteMedia'])->name('contents.media.delete');
+        Route::post('contents/{content}/media-upload', [ContentController::class, 'uploadMedia'])->name('contents.media.upload');
         Route::resource('categories', CategoryController::class);
-        Route::delete('/images/{image}', [ContentController::class, 'deleteImage'])->name('images.delete');
     });
 });
 

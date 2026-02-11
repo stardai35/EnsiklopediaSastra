@@ -18,12 +18,17 @@ class HomeController extends Controller
         $categoryContents = [];
         foreach ($categories as $category) {
             $categoryContents[$category->id] = Content::where('cat_id', $category->id)
+                ->with('lemma', 'media')
                 ->take(3)
                 ->get();
         }
 
         // Ambil popular people (category 1 = Pengarang) - randomized
-        $popularPeople = Content::where('cat_id', 1)->inRandomOrder()->take(4)->get();
+        $popularPeople = Content::where('cat_id', 1)
+            ->with('lemma', 'media')
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
 
         // Hitung statistik
         $totalContent = Content::count();
@@ -45,13 +50,15 @@ class HomeController extends Controller
         $categories = Category::all();
 
         // Query dasar
-        $query = Content::query();
+        $query = Content::with('lemma', 'category', 'media');
 
         // Filter pencarian
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%')
+                $q->whereHas('lemma', function ($lemmaQuery) use ($search) {
+                        $lemmaQuery->where('name', 'like', '%' . $search . '%');
+                    })
                     ->orWhereHas('category', function ($categoryQuery) use ($search) {
                         $categoryQuery->where('name', 'like', '%' . $search . '%');
                     });
@@ -70,10 +77,14 @@ class HomeController extends Controller
                 $query->orderBy('year', 'asc');
                 break;
             case 'judul_az':
-                $query->orderBy('title', 'asc');
+                $query->join('lemma', 'content.title_id', '=', 'lemma.id')
+                      ->orderBy('lemma.name', 'asc')
+                      ->select('content.*');
                 break;
             case 'judul_za':
-                $query->orderBy('title', 'desc');
+                $query->join('lemma', 'content.title_id', '=', 'lemma.id')
+                      ->orderBy('lemma.name', 'desc')
+                      ->select('content.*');
                 break;
             case 'terbaru':
             default:
@@ -100,7 +111,9 @@ class HomeController extends Controller
     public function category(string $slug): View
     {
         $category = Category::where('slug', $slug)->firstOrFail();
-        $contents = Content::where('cat_id', $category->id)->paginate(9);
+        $contents = Content::where('cat_id', $category->id)
+            ->with('lemma', 'media')
+            ->paginate(9);
         $categories = Category::all();
 
         return view('home.category', [
@@ -112,9 +125,12 @@ class HomeController extends Controller
 
     public function detail(string $slug): View
     {
-        $content = Content::where('slug', $slug)->firstOrFail();
+        $content = Content::where('slug', $slug)
+            ->with('lemma', 'media')
+            ->firstOrFail();
         $relatedContents = Content::where('cat_id', $content->cat_id)
             ->where('id', '!=', $content->id)
+            ->with('lemma', 'media')
             ->take(3)
             ->get();
         $categories = Category::all();

@@ -7,10 +7,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <i class="fas fa-pencil"></i> Edit: {{ $content->title }}
+            <i class="fas fa-pencil"></i> Edit: {{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.contents.update', $content->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.contents.update', $content->id) }}" method="POST" id="content-form" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -44,7 +44,7 @@
                                 name="year" 
                                 id="year" 
                                 class="form-control @error('year') is-invalid @enderror" 
-                                value="{{ old('year', $content->year) }}"
+                                value="{{ old('year', $content->formatted_year ?? $content->year) }}"
                                 placeholder="Contoh: 2025 atau 1990-2000"
                             >
                             @error('year')
@@ -55,18 +55,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="title" class="form-label">
-                        <i class="fas fa-heading"></i> Judul Konten <span style="color: red;">*</span>
+                    <label for="lemma_name" class="form-label">
+                        <i class="fas fa-heading"></i> Lemma (Judul) <span style="color: red;">*</span>
                     </label>
-                            <input 
-                        name="title" 
-                        id="title" 
-                        class="form-control @error('title') is-invalid @enderror" 
-                        value="{{ old('title', $content->title) }}"
-                        placeholder="Masukkan judul konten"
+                    <input 
+                        type="text" 
+                        name="lemma_name" 
+                        id="lemma_name" 
+                        class="form-control @error('lemma_name') is-invalid @enderror" 
+                        value="{{ old('lemma_name', $content->lemma->formatted_name ?? $content->lemma->name ?? '') }}"
+                        placeholder="Masukkan nama lemma/judul"
                         required
-                            >
-                    @error('title')
+                    >
+                    @error('lemma_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -81,7 +82,7 @@
                         class="form-control summernote @error('text') is-invalid @enderror"
                         placeholder="Masukkan konten lengkap dengan formatting"
                         required
-                    >{{ old('text', $content->text) }}</textarea>
+                    >{{ old('text', $content->formatted_text) }}</textarea>
                     @error('text')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -90,60 +91,94 @@
                     </small>
                 </div>
 
-                <!-- Existing Images -->
-                @if($content->images->count() > 0)
-                    <div class="mb-3">
-                        <label class="form-label">
-                            <i class="fas fa-image"></i> Gambar Terkini ({{ $content->images->count() }} gambar)
-                        </label>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                            @foreach($content->images as $image)
-                                <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 120px; z-index: 1;"></div>
-                                    <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->alt_text }}" class="lazy-image" style="width: 100%; height: 120px; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-danger btn-sm" 
-                                        style="position: absolute; top: 5px; right: 5px; z-index: 3;"
-                                        onclick="deleteImage({{ $image->id }}, '{{ $image->alt_text }}')"
-                                    >
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                <!-- Image Management Section -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="fas fa-images"></i> Kelola Gambar
+                    </label>
+                    
+                    <!-- Existing Images -->
+                    @if($content->media && $content->media->count() > 0)
+                        <div class="row mb-3" id="existing-images">
+                            @foreach($content->media as $media)
+                                <div class="col-md-3 mb-3 image-item" data-media-id="{{ $media->id }}">
+                                    <div class="card">
+                                        <img src="{{ $media->image_url }}" alt="Image" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                        <div class="card-body p-2">
+                                            <input 
+                                                type="text" 
+                                                class="form-control form-control-sm mb-2 media-caption" 
+                                                value="{{ $media->caption }}" 
+                                                placeholder="Caption"
+                                                data-media-id="{{ $media->id }}"
+                                            >
+                                            <div class="d-flex gap-1">
+                                                <button 
+                                                    type="button" 
+                                                    class="btn btn-sm btn-warning w-100 update-media-btn"
+                                                    data-media-id="{{ $media->id }}"
+                                                >
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                                <button 
+                                                    type="button" 
+                                                    class="btn btn-sm btn-danger w-100 delete-media-btn"
+                                                    data-media-id="{{ $media->id }}"
+                                                >
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                <!-- New Images -->
-                <div class="mb-3">
-                    <label for="images" class="form-label">
-                        <i class="fas fa-images"></i> Tambah Gambar Baru (Multiple)
-                    </label>
-                    <div class="input-group">
-                        <input 
-                            type="file" 
-                            name="images[]" 
-                            id="images" 
-                            class="form-control" 
-                            multiple
-                            accept="image/*"
-                        >
+                    <!-- Upload New Images -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Tambah Gambar Baru</h6>
+                            <div id="image-uploads-container">
+                                <div class="image-upload-item mb-2">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input 
+                                                type="file" 
+                                                name="images[]" 
+                                                class="form-control image-file-input" 
+                                                accept="image/*"
+                                            >
+                                            <div class="image-preview-container mt-2" style="display: none;">
+                                                <img src="" alt="Preview" class="image-preview" style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input 
+                                                type="text" 
+                                                name="image_captions[]" 
+                                                class="form-control" 
+                                                placeholder="Caption (opsional)"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-danger btn-sm remove-image-btn" style="display: none;">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-secondary mt-2" id="add-image-btn">
+                                <i class="fas fa-plus"></i> Tambah Gambar Lain
+                            </button>
+                        </div>
                     </div>
-                    <small class="text-muted">
-                        <i class="fas fa-info-circle"></i> Anda bisa tambah gambar baru. Format: JPG, PNG, GIF (Max 2MB per gambar)
-                    </small>
-                    @error('images.*')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-
-                    <!-- Image Preview -->
-                    <div id="imagePreview" style="margin-top: 1rem;"></div>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
                     <p style="margin: 0; color: #666;">
-                        <i class="fas fa-info-circle" style="color: #0d6efd;"></i> <strong>Info:</strong> Slug akan diupdate otomatis jika judul berubah. Anda bisa hapus gambar yang ada dengan tombol X pada setiap gambar.
+                        <i class="fas fa-info-circle" style="color: #0d6efd;"></i> <strong>Info:</strong> Slug akan diupdate otomatis jika lemma berubah.
                     </p>
                 </div>
 
@@ -164,7 +199,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-        // Initialize Summernote
+        // Initialize Summernote with image upload
         $(document).ready(function() {
             $('.summernote').summernote({
                 placeholder: 'Masukkan konten...',
@@ -176,62 +211,231 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'hr']],
+                    ['insert', ['link', 'picture', 'hr']],
                     ['view', ['fullscreen', 'codeview']],
                     ['help', ['help']]
-                ]
+                ],
+                callbacks: {
+                    onImageUpload: function(files) {
+                        uploadImageToServer(files[0]);
+                    }
+                }
+            });
+
+            // Add image preview functionality
+            $(document).on('change', '.image-file-input', function() {
+                const file = this.files[0];
+                const previewContainer = $(this).siblings('.image-preview-container');
+                const previewImg = previewContainer.find('.image-preview');
+                
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.attr('src', e.target.result);
+                        previewContainer.show();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewContainer.hide();
+                }
+            });
+
+            // Add image upload field
+            $('#add-image-btn').on('click', function() {
+                const newItem = `
+                    <div class="image-upload-item mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input 
+                                    type="file" 
+                                    name="images[]" 
+                                    class="form-control image-file-input" 
+                                    accept="image/*"
+                                >
+                                <div class="image-preview-container mt-2" style="display: none;">
+                                    <img src="" alt="Preview" class="image-preview" style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input 
+                                    type="text" 
+                                    name="image_captions[]" 
+                                    class="form-control" 
+                                    placeholder="Caption (opsional)"
+                                >
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-danger btn-sm remove-image-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#image-uploads-container').append(newItem);
+                updateRemoveButtons();
+            });
+
+            // Remove image upload field
+            $(document).on('click', '.remove-image-btn', function() {
+                const item = $(this).closest('.image-upload-item');
+                item.find('.image-file-input').val('');
+                item.find('.image-preview-container').hide();
+                item.remove();
+                updateRemoveButtons();
+            });
+
+            function updateRemoveButtons() {
+                const items = $('.image-upload-item');
+                items.each(function(index) {
+                    if (items.length > 1) {
+                        $(this).find('.remove-image-btn').show();
+                    } else {
+                        $(this).find('.remove-image-btn').hide();
+                    }
+                });
+            }
+
+            updateRemoveButtons();
+
+            // Log file info before form submission (server will filter empty files)
+            $('#content-form').on('submit', function(e) {
+                let fileCount = 0;
+                let fileInfo = [];
+                
+                $('.image-file-input').each(function(index) {
+                    const fileInput = $(this)[0];
+                    if (fileInput && fileInput.files && fileInput.files.length > 0 && fileInput.files[0].size > 0) {
+                        fileCount++;
+                        fileInfo.push({
+                            index: index,
+                            name: fileInput.files[0].name,
+                            size: fileInput.files[0].size,
+                            type: fileInput.files[0].type
+                        });
+                    }
+                });
+                
+                console.log('Form submitting - Files found:', fileCount, 'File details:', fileInfo);
+                
+                // Don't remove or disable - let server handle empty files
+            });
+
+            // Handle update media caption
+            $('.update-media-btn').on('click', function() {
+                const mediaId = $(this).data('media-id');
+                const caption = $(this).closest('.image-item').find('.media-caption').val();
+                updateMedia(mediaId, caption);
+            });
+
+            // Handle delete media
+            $('.delete-media-btn').on('click', function() {
+                if (confirm('Yakin ingin menghapus gambar ini?')) {
+                    const mediaId = $(this).data('media-id');
+                    deleteMedia(mediaId);
+                }
             });
         });
 
-        // Image preview untuk image baru
-        document.getElementById('images').addEventListener('change', function(e) {
-            const preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
+        function uploadImageToServer(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('_token', '{{ csrf_token() }}');
 
-            if (this.files.length > 0) {
-                const gallery = document.createElement('div');
-                gallery.className = 'image-gallery';
-                gallery.innerHTML = '<h6 style="margin-bottom: 1rem;"><i class="fas fa-plus"></i> Preview Gambar Baru</h6>';
-
-                Array.from(this.files).forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const item = document.createElement('div');
-                        item.className = 'image-item';
-                        item.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                        gallery.appendChild(item);
-                    };
-                    reader.readAsDataURL(file);
-                });
-
-                preview.appendChild(gallery);
-            }
-        });
-
-        // Delete image
-        function deleteImage(imageId, altText) {
-            if (confirm(`Hapus gambar "${altText}"?`)) {
-                fetch(`/admin/images/${imageId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Gambar berhasil dihapus');
-                        location.reload();
+            $.ajax({
+                url: '{{ route("admin.contents.media.upload", $content->id) }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('.summernote').summernote('insertImage', response.url);
                     } else {
-                        alert('Gagal menghapus gambar');
+                        alert('Gagal mengupload gambar');
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan');
-                });
-            }
+                },
+                error: function() {
+                    alert('Gagal mengupload gambar');
+                }
+            });
+        }
+
+
+        function updateMedia(mediaId, caption) {
+            $.ajax({
+                url: '{{ url("admin/contents/{$content->id}/media") }}/' + mediaId,
+                type: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                data: {
+                    caption: caption
+                },
+                success: function(response) {
+                    alert('Gambar berhasil diperbarui!');
+                },
+                error: function() {
+                    alert('Gagal memperbarui gambar');
+                }
+            });
+        }
+
+        function deleteMedia(mediaId) {
+            $.ajax({
+                url: '{{ url("admin/contents/{$content->id}/media") }}/' + mediaId,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                success: function(response) {
+                    $('.image-item[data-media-id="' + mediaId + '"]').remove();
+                    alert('Gambar berhasil dihapus!');
+                },
+                error: function() {
+                    alert('Gagal menghapus gambar');
+                }
+            });
         }
     </script>
+
+    <style>
+        .image-item {
+            position: relative;
+        }
+        .image-item .card {
+            border: 1px solid #ddd;
+            transition: box-shadow 0.3s;
+        }
+        .image-item .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .image-item img {
+            width: 100%;
+            cursor: pointer;
+        }
+        .image-upload-item {
+            padding: 0.5rem;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .image-upload-item:hover {
+            background: #f5f5f5;
+        }
+        .image-preview-container {
+            margin-top: 0.5rem;
+        }
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 @endsection

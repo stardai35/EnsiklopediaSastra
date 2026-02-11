@@ -75,7 +75,6 @@
                                 <th style="width: auto;">Judul</th>
                                 <th style="width: 12%;">Kategori</th>
                                 <th style="width: 10%;">Tahun</th>
-                                <th style="width: 8%;">Gambar</th>
                                 <th style="width: 25%; text-align: right;">Aksi</th>
                             </tr>
                         </thead>
@@ -84,20 +83,13 @@
                                 <tr>
                                     <td>#{{ $content->id }}</td>
                                     <td style="word-wrap: break-word;">
-                                        <strong style="display: block; margin-bottom: 0.25rem;">{{ $content->title }}</strong>
-                                        <small style="color: #999; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; word-wrap: break-word;">{!! strip_tags($content->text) !!}</small>
+                                        <strong style="display: block; margin-bottom: 0.25rem;">{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'N/A' }}</strong>
+                                        <small style="color: #999; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; word-wrap: break-word;">{!! strip_tags($content->formatted_text) !!}</small>
                                     </td>
                                     <td>
                                         <span class="badge badge-primary">{{ $content->category->name }}</span>
                                     </td>
-                                    <td>{{ $content->year }}</td>
-                                    <td>
-                                        @if($content->images->count() > 0)
-                                            <span class="badge bg-success">{{ $content->images->count() }}</span>
-                                        @else
-                                            <span class="badge bg-secondary">0</span>
-                                        @endif
-                                    </td>
+                                    <td>{{ $content->formatted_year ?? $content->year }}</td>
                                     <td style="white-space: nowrap; text-align: right;">
                                         <div style="display: flex; gap: 0.25rem; justify-content: flex-end; flex-wrap: wrap;">
                                             <a href="{{ route('admin.contents.edit', $content) }}" class="btn btn-sm btn-warning" title="Edit">

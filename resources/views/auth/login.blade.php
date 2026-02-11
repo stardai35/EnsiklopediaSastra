@@ -132,18 +132,6 @@
             margin-top: 0.3rem;
         }
 
-        .demo-info {
-            background: #e7f3ff;
-            border-left: 4px solid #2196F3;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .demo-info strong {
-            color: #2196F3;
-        }
     </style>
 </head>
 <body>
@@ -165,12 +153,6 @@
                     </div>
                 @endif
 
-                <div class="demo-info">
-                    <strong><i class="fas fa-info-circle"></i> Demo Akun:</strong><br>
-                    Email: admin@example.com<br>
-                    Password: password
-                </div>
-
                 <form method="POST" action="{{ route('admin.login') }}">
                     @csrf
 
@@ -184,7 +166,7 @@
                             id="email" 
                             name="email" 
                             value="{{ old('email') }}"
-                            placeholder="admin@example.com"
+                            placeholder="Masukkan email"
                             required
                             autofocus
                         >

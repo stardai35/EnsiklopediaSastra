@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', $content->title . ' - Ensiklopedia Sastra Indonesia')
+@section('title', ($content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten') . ' - Ensiklopedia Sastra Indonesia')
 
 @section('content')
     <!-- Detail Header -->
     <div class="purple-gradient-bg" style="color: white; padding: 2rem;">
         <div class="container">
-            <h1>{{ $content->title }}</h1>
-            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">{{ $content->category->name }} • {{ $content->year }}</p>
+            <h1>{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}</h1>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">{{ $content->category->name }} • {{ $content->formatted_year ?? $content->year }}</p>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
                 <li class="breadcrumb-item"><a
                         href="{{ route('category', $content->category->slug) }}">{{ $content->category->name }}</a></li>
-                <li class="breadcrumb-item active">{{ $content->title }}</li>
+                <li class="breadcrumb-item active">{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}</li>
             </ol>
         </nav>
 
@@ -27,16 +27,19 @@
                 <!-- Main Content -->
                 <article
                     style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    @if($content->images->first())
+                    @if($content->media->first() && $content->media->first()->link)
                         <div style="margin-bottom: 2rem; position: relative;">
                             <div class="image-loading-skeleton"
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 400px; z-index: 1; border-radius: 10px;">
                             </div>
-                            <img src="{{ asset('storage/' . $content->images->first()->path) }}" alt="{{ $content->title }}"
+                            <img src="{{ $content->media->first()->image_url }}" alt="{{ $content->lemma->name ?? 'Konten' }}"
                                 class="lazy-image"
                                 style="width: 100%; border-radius: 10px; max-height: 400px; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;"
                                 onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';"
                                 onerror="this.previousElementSibling.style.display='none';">
+                            @if($content->media->first()->caption)
+                                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem; font-style: italic;">{{ $content->media->first()->caption }}</p>
+                            @endif
                         </div>
                     @endif
 
@@ -46,38 +49,40 @@
                             {{ $content->category->name }}
                         </span>
                         <span style="display: inline-block; margin-left: 1rem; color: #999; font-size: 0.9rem;">
-                            <i class="fas fa-calendar"></i> {{ $content->year }}
+                            <i class="fas fa-calendar"></i> {{ $content->formatted_year ?? $content->year }}
                         </span>
                     </div>
 
-                    <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">{{ $content->title }}</h2>
+                    <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}</h2>
 
-                    <div style="line-height: 1.8; color: #333; font-size: 1rem; word-break: break-word;">
-                        {!! $content->text !!}
+                    <div class="content-body" style="line-height: 1.8; color: #333; font-size: 1rem; word-break: break-word;">
+                        {!! $content->formatted_text !!}
                     </div>
 
-                    @if($content->images->count() > 1)
+                    @if($content->media->count() > 1)
                         <div style="margin-top: 3rem;">
                             <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Galeri Foto</h3>
                             <div
                                 style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
-                                @foreach($content->images->skip(1) as $image)
+                                @foreach($content->media->skip(1) as $media)
                                     <div style="position: relative;">
                                         <div class="image-loading-skeleton"
                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 150px; z-index: 1; border-radius: 8px;">
                                         </div>
-                                        <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->alt_text }}"
+                                        <img src="{{ $media->image_url }}" alt="{{ $media->caption ?? $content->lemma->name ?? 'Konten' }}"
                                             class="lazy-image"
                                             style="width: 100%; height: 150px; object-fit: contain; border-radius: 8px; cursor: pointer; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;"
-                                            data-bs-toggle="modal" data-bs-target="#imageModal"
-                                            onclick="showImage('{{ asset('storage/' . $image->path) }}')"
                                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';"
                                             onerror="this.previousElementSibling.style.display='none';">
+                                        @if($media->caption)
+                                            <p style="margin-top: 0.5rem; color: #666; font-size: 0.85rem; text-align: center;">{{ $media->caption }}</p>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     @endif
+
                 </article>
             </div>
 
@@ -95,10 +100,10 @@
                                 <li style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
                                     <a href="{{ route('detail', $related->slug) }}"
                                         style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
-                                        {{ $related->title }}
+                                        {{ $related->lemma->formatted_name ?? $related->lemma->name ?? 'Konten' }}
                                     </a>
                                     <div style="color: #999; font-size: 0.85rem; margin-top: 0.3rem;">
-                                        {{ $related->year }}
+                                        {{ $related->formatted_year ?? $related->year }}
                                     </div>
                                 </li>
                             @endforeach
@@ -154,6 +159,78 @@
 
         .breadcrumb-item a:hover {
             text-decoration: underline;
+        }
+
+        /* Content formatting */
+        .content-body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .content-body p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .content-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-body span.italicword {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .content-body strong {
+            font-weight: 600;
+        }
+
+        .content-body em {
+            font-style: italic;
+        }
+
+        .content-body ul,
+        .content-body ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .content-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-body h1,
+        .content-body h2,
+        .content-body h3,
+        .content-body h4,
+        .content-body h5,
+        .content-body h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .content-body h1:first-child,
+        .content-body h2:first-child,
+        .content-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-body a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .content-body a:hover {
+            color: #6d28d9;
+        }
+
+        .content-body blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #666;
         }
     </style>
 @endsection

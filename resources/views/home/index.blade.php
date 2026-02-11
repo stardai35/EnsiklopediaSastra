@@ -60,13 +60,14 @@
                                 <div class="category-content">
                                     <h5>{{ $category->name }}</h5>
                                     @php
-                                        $text = match ($category->slug) {
+                                        $text = match (strtolower($category->slug)) {
                                             'pengarang' => 'Daftar tokoh pengarang sastra Indonesia beserta karya dan profil singkatnya. Komentar kritis juga disertakan untuk lema pengarang.',
-                                            'karya-sastra' => 'Kategori ini memuat lema tentang karya sastra, yang mencakup informasi terkait publikasi dan isi karya sastra, serta komentar kritis.',
-                                            'gejala-sastra' => 'Kategori gejala sastra mencakup kehidupan sastra dan peristiwa-peristiwa yang terjadi di dalamnya, termasuk keterlibatan pengarang, pembaca, kritikus, dan akademisi. ',
-                                            'lembaga-sastra' => 'Lembaga-lembaga ini dapat berupa organisasi pemerintah atau swasta yang berfungsi sebagai patron sastra, dengan berbagai ideologi dan tujuan yang berbeda.',
-                                            'media-penyebar-penerbit-sastra' => 'Media penyebar sastra memegang peran penting dalam penyebaran sastra.',
-                                            'hadiah-sayembara-sastra' => 'Hadiah dan sayembara sastra merupakan bentuk patronase sastra yang memberikan motivasi kepada pengarang untuk terus berkarya.'
+                                            'karya-sastra', 'karya_sastra' => 'Kategori ini memuat lema tentang karya sastra, yang mencakup informasi terkait publikasi dan isi karya sastra, serta komentar kritis.',
+                                            'gejala-sastra', 'gejala_sastra' => 'Kategori gejala sastra mencakup kehidupan sastra dan peristiwa-peristiwa yang terjadi di dalamnya, termasuk keterlibatan pengarang, pembaca, kritikus, dan akademisi. ',
+                                            'lembaga-sastra', 'lembaga_sastra' => 'Lembaga-lembaga ini dapat berupa organisasi pemerintah atau swasta yang berfungsi sebagai patron sastra, dengan berbagai ideologi dan tujuan yang berbeda.',
+                                            'media-penyebar-penerbit-sastra', 'media_penyebar_penerbit_sastra' => 'Media penyebar sastra memegang peran penting dalam penyebaran sastra.',
+                                            'hadiah-sayembara-sastra', 'hadiah_sayembara_sastra' => 'Hadiah dan sayembara sastra merupakan bentuk patronase sastra yang memberikan motivasi kepada pengarang untuk terus berkarya.',
+                                            default => 'Kategori ini memuat informasi terkait ' . strtolower($category->name) . '.'
                                         };
                                     @endphp
 
@@ -97,15 +98,15 @@
                 @foreach($popularPeople as $person)
                     <div class="person-card">
                         <div class="person-image" style="position: relative;">
-                            @if($person->images->first())
+                            @if($person->media->first() && $person->media->first()->link)
                                 <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; border-radius: 10px;"></div>
-                                <img src="{{ asset('storage/' . $person->images->first()->path) }}" alt="{{ $person->title }}" class="lazy-image" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
+                                <img src="{{ $person->media->first()->image_url }}" alt="{{ $person->lemma->formatted_name ?? $person->lemma->name ?? 'N/A' }}" class="lazy-image" style="position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; width: 100%; height: 100%; object-fit: contain;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.style.opacity='1'; this.previousElementSibling.style.display='none'; this.src=''; this.outerHTML='<i class=\'fas fa-user\' style=\'font-size: 80px; color: #ccc;\'></i>';">
                             @else
                                 <i class="fas fa-user" style="font-size: 80px; color: #ccc;"></i>
                             @endif
                         </div>
-                        <div class="person-name">{{ $person->title }}</div>
-                        <div class="person-year">{{ $person->year }}</div>
+                        <div class="person-name">{{ $person->lemma->formatted_name ?? $person->lemma->name ?? 'N/A' }}</div>
+                        <div class="person-year">{{ $person->formatted_year ?? $person->year }}</div>
                         <a href="{{ route('detail', $person->slug) }}" class="btn-primary"
                             style="margin-top: 1rem; font-size: 0.9rem;">
                             Lihat Profil

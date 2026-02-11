@@ -10,7 +10,7 @@
             <i class="fas fa-edit"></i> Form Tambah Konten
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.contents.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.contents.store') }}" method="POST" id="content-form" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
@@ -36,7 +36,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="year" class="form-label">
-                                <i class="fas fa-calendar"></i> Tahun <span style="color: red;">*</span>
+                                <i class="fas fa-calendar"></i> Tahun
                             </label>
                             <input 
                                 type="text" 
@@ -45,7 +45,6 @@
                                 class="form-control @error('year') is-invalid @enderror" 
                                 value="{{ old('year') }}"
                                 placeholder="Contoh: 2025 atau 1990-2000"
-                                required
                             >
                             @error('year')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -55,19 +54,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="title" class="form-label">
-                        <i class="fas fa-heading"></i> Judul Konten <span style="color: red;">*</span>
+                    <label for="lemma_name" class="form-label">
+                        <i class="fas fa-heading"></i> Lemma (Judul) <span style="color: red;">*</span>
                     </label>
                     <input 
                         type="text" 
-                        name="title" 
-                        id="title" 
-                        class="form-control @error('title') is-invalid @enderror" 
-                        value="{{ old('title') }}"
-                        placeholder="Masukkan judul konten"
+                        name="lemma_name" 
+                        id="lemma_name" 
+                        class="form-control @error('lemma_name') is-invalid @enderror" 
+                        value="{{ old('lemma_name') }}"
+                        placeholder="Masukkan nama lemma/judul"
                         required
                     >
-                    @error('title')
+                    @error('lemma_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -91,34 +90,56 @@
                     </small>
                 </div>
 
+                <!-- Image Management Section -->
                 <div class="mb-3">
-                    <label for="images" class="form-label">
-                        <i class="fas fa-images"></i> Gambar (Multiple)
+                    <label class="form-label">
+                        <i class="fas fa-images"></i> Gambar
                     </label>
-                    <div class="input-group">
-                        <input 
-                            type="file" 
-                            name="images[]" 
-                            id="images" 
-                            class="form-control" 
-                            multiple
-                            accept="image/*"
-                        >
+                    
+                    <!-- Upload New Image -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Tambah Gambar</h6>
+                            <div id="image-uploads-container">
+                                <div class="image-upload-item mb-2">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input 
+                                                type="file" 
+                                                name="images[]" 
+                                                class="form-control image-file-input" 
+                                                accept="image/*"
+                                            >
+                                            <div class="image-preview-container mt-2" style="display: none;">
+                                                <img src="" alt="Preview" class="image-preview" style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input 
+                                                type="text" 
+                                                name="image_captions[]" 
+                                                class="form-control" 
+                                                placeholder="Caption (opsional)"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-danger btn-sm remove-image-btn" style="display: none;">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-secondary mt-2" id="add-image-btn">
+                                <i class="fas fa-plus"></i> Tambah Gambar Lain
+                            </button>
+                        </div>
                     </div>
-                    <small class="text-muted">
-                        <i class="fas fa-info-circle"></i> Anda bisa upload multiple gambar sekaligus. Format: JPG, PNG, GIF (Max 2MB per gambar)
-                    </small>
-                    @error('images.*')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-
-                    <!-- Image Preview -->
-                    <div id="imagePreview" style="margin-top: 1rem;"></div>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
                     <p style="margin: 0; color: #666;">
-                        <i class="fas fa-check-circle" style="color: green;"></i> <strong>Info:</strong> Slug akan dibuat otomatis dari judul konten. Semua gambar akan tersimpan di galeri konten.
+                        <i class="fas fa-check-circle" style="color: green;"></i> <strong>Info:</strong> Slug akan dibuat otomatis dari nama lemma.
                     </p>
                 </div>
 
@@ -139,7 +160,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-        // Initialize Summernote
+        // Initialize Summernote with image upload
         $(document).ready(function() {
             $('.summernote').summernote({
                 placeholder: 'Masukkan konten...',
@@ -151,35 +172,136 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'hr']],
+                    ['insert', ['link', 'picture', 'hr']],
                     ['view', ['fullscreen', 'codeview']],
                     ['help', ['help']]
-                ]
+                ],
+                callbacks: {
+                    onImageUpload: function(files) {
+                        // Note: Images uploaded via editor will be saved after content creation
+                        // For now, we'll just insert the image URL placeholder
+                        const file = files[0];
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('.summernote').summernote('insertImage', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+            // Add image preview functionality
+            $(document).on('change', '.image-file-input', function() {
+                const file = this.files[0];
+                const previewContainer = $(this).siblings('.image-preview-container');
+                const previewImg = previewContainer.find('.image-preview');
+                
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.attr('src', e.target.result);
+                        previewContainer.show();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewContainer.hide();
+                }
+            });
+
+            // Add image upload field
+            $('#add-image-btn').on('click', function() {
+                const newItem = `
+                    <div class="image-upload-item mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input 
+                                    type="file" 
+                                    name="images[]" 
+                                    class="form-control image-file-input" 
+                                    accept="image/*"
+                                >
+                                <div class="image-preview-container mt-2" style="display: none;">
+                                    <img src="" alt="Preview" class="image-preview" style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input 
+                                    type="text" 
+                                    name="image_captions[]" 
+                                    class="form-control" 
+                                    placeholder="Caption (opsional)"
+                                >
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-danger btn-sm remove-image-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#image-uploads-container').append(newItem);
+                updateRemoveButtons();
+            });
+
+            // Remove image upload field
+            $(document).on('click', '.remove-image-btn', function() {
+                const item = $(this).closest('.image-upload-item');
+                item.find('.image-file-input').val('');
+                item.find('.image-preview-container').hide();
+                item.remove();
+                updateRemoveButtons();
+            });
+
+            function updateRemoveButtons() {
+                const items = $('.image-upload-item');
+                items.each(function(index) {
+                    if (items.length > 1) {
+                        $(this).find('.remove-image-btn').show();
+                    } else {
+                        $(this).find('.remove-image-btn').hide();
+                    }
+                });
+            }
+
+            updateRemoveButtons();
+
+            // Remove empty file inputs before form submission
+            $('#content-form').on('submit', function(e) {
+                $('.image-file-input').each(function() {
+                    const fileInput = $(this)[0];
+                    if (!fileInput || !fileInput.files || fileInput.files.length === 0 || fileInput.files[0].size === 0) {
+                        // Remove the entire upload item if file is empty
+                        $(this).closest('.image-upload-item').remove();
+                    }
+                });
+                // Allow form to submit normally
             });
         });
 
-        // Image preview
-        document.getElementById('images').addEventListener('change', function(e) {
-            const preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
-
-            if (this.files.length > 0) {
-                const gallery = document.createElement('div');
-                gallery.className = 'image-gallery';
-
-                Array.from(this.files).forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const item = document.createElement('div');
-                        item.className = 'image-item';
-                        item.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                        gallery.appendChild(item);
-                    };
-                    reader.readAsDataURL(file);
-                });
-
-                preview.appendChild(gallery);
-            }
-        });
     </script>
+
+    <style>
+        .image-upload-item {
+            padding: 0.5rem;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .image-upload-item:hover {
+            background: #f5f5f5;
+        }
+        .image-preview-container {
+            margin-top: 0.5rem;
+        }
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 @endsection

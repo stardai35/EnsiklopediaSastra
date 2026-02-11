@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
+            'name' => 'required|string|max:255|unique:category',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -49,7 +49,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'name' => 'required|string|max:255|unique:category,name,' . $category->id,
         ]);
 
         if ($validated['name'] !== $category->name) {

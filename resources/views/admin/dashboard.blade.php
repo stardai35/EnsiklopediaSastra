@@ -23,13 +23,6 @@
         </div>
         <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-image"></i></div>
-                <div class="stat-number">{{ $totalImages }}</div>
-                <div class="stat-label">Total Gambar</div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-3 mb-3">
-            <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-search"></i></div>
                 <div class="stat-number">{{ $totalContents }}</div>
                 <div class="stat-label">Data Pencarian</div>
@@ -50,7 +43,6 @@
                             <th>Judul</th>
                             <th>Kategori</th>
                             <th>Tahun</th>
-                            <th>Gambar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -58,19 +50,12 @@
                         @foreach($recentContents as $content)
                             <tr>
                                 <td>
-                                    <strong>{{ $content->title }}</strong>
+                                    <strong>{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'N/A' }}</strong>
                                 </td>
                                 <td>
                                     <span class="badge badge-primary">{{ $content->category->name }}</span>
                                 </td>
-                                <td>{{ $content->year }}</td>
-                                <td>
-                                    @if($content->images->count() > 0)
-                                        <span class="badge bg-success">{{ $content->images->count() }} gambar</span>
-                                    @else
-                                        <span class="badge bg-secondary">Tidak ada</span>
-                                    @endif
-                                </td>
+                                <td>{{ $content->formatted_year ?? $content->year }}</td>
                                 <td>
                                     <a href="{{ route('admin.contents.edit', $content) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i> Edit

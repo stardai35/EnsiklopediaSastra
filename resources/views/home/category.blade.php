@@ -26,18 +26,18 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card category-card" style="height: 100%;">
                         <div class="category-card-img" style="position: relative;">
-                            @if($content->images->first())
+                            @if($content->media->first() && $content->media->first()->link)
                                 <div class="image-loading-skeleton" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
-                                <img src="{{ asset('storage/' . $content->images->first()->path) }}" alt="{{ $content->title }}" class="lazy-image"
-                                    style="width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.previousElementSibling.style.display='none';">
+                                <img src="{{ $content->media->first()->image_url }}" alt="{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}" class="lazy-image"
+                                    style="width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 2; opacity: 0; transition: opacity 0.3s; background: #f8f9fa;" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" onerror="this.style.opacity='1'; this.previousElementSibling.style.display='none'; this.src=''; this.outerHTML='<i class=\'fas fa-file-alt\'></i>';">
                             @else
                                 <i class="fas fa-file-alt"></i>
                             @endif
                         </div>
                         <div class="category-card-body" style="display: flex; flex-direction: column; height: 100%;">
-                            <h5 class="category-card-title">{{ $content->title }}</h5>
-                            <p class="category-card-text"><strong>Tahun:</strong> {{ $content->year }}</p>
-                            <div class="category-card-text" style="line-height: 1.5; max-height: 3em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; margin-bottom: 1rem;">{!! $content->text !!}</div>
+                            <h5 class="category-card-title">{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}</h5>
+                            <p class="category-card-text"><strong>Tahun:</strong> {{ $content->formatted_year ?? $content->year }}</p>
+                            <div class="category-card-text content-preview" style="line-height: 1.5; max-height: 3em; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; margin-bottom: 1rem;">{!! $content->formatted_text !!}</div>
                             <a href="{{ route('detail', $content->slug) }}" class="btn-primary"
                                 style="display: block; margin-top: auto;">
                                 Baca Selengkapnya
@@ -78,6 +78,57 @@
 
         .breadcrumb-item a:hover {
             text-decoration: underline;
+        }
+
+        /* Content preview formatting */
+        .content-preview {
+            -webkit-line-clamp: 2;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .content-preview p {
+            margin: 0;
+            display: inline;
+        }
+
+        .content-preview p::after {
+            content: ' ';
+        }
+
+        .content-preview p:last-child::after {
+            content: '';
+        }
+
+        .content-preview span.italicword {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .content-preview strong {
+            font-weight: 600;
+        }
+
+        .content-preview em {
+            font-style: italic;
+        }
+
+        .content-preview ul,
+        .content-preview ol {
+            display: none;
+        }
+
+        .content-preview br {
+            display: none;
+        }
+
+        .content-preview h1,
+        .content-preview h2,
+        .content-preview h3,
+        .content-preview h4,
+        .content-preview h5,
+        .content-preview h6 {
+            display: none;
         }
     </style>
 @endsection
