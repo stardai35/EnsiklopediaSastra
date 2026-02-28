@@ -89,10 +89,10 @@ class Content extends Model
         // Fix encoding issues (â€" → –, â€" → —, etc.)
         $year = str_replace('â€"', '–', $year); // En dash
         $year = str_replace('â€"', '—', $year); // Em dash
-        $year = str_replace('â€¦', '…', $year); // Ellipsis
-        $year = str_replace('â€™', "'", $year); // Right single quotation mark
-        $year = str_replace('â€œ', '"', $year); // Left double quotation mark
-        $year = str_replace('â€', '"', $year); // Right double quotation mark
+        $year = str_replace('â€¦', '—', $year); // Ellipsis
+        $year = str_replace('â€™', "—", $year); // Right single quotation mark
+        $year = str_replace('â€œ', '—', $year); // Left double quotation mark
+        $year = str_replace('â€', '—', $year); // Right double quotation mark
 
         // Clean up any remaining encoding artifacts
         $year = mb_convert_encoding($year, 'UTF-8', 'UTF-8');
