@@ -245,7 +245,7 @@
 
                     <!-- LEFT FAQ -->
                     <div class="col-lg-6">
-                                  <h2 class="section-title" style="margin: 0;"> Pertanyaan yang Sering Ditanyakan</h2>
+                                  <h2 class="section-title" style="margin: 0;"> Soal Sering Ditanya (SSD)</h2>
 
                         <div style="border-top:1px solid #e5e7eb">
 

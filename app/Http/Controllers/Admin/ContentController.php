@@ -12,6 +12,10 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
+use App\Imports\ContentsImport;
+use App\Exports\ContentTemplateExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContentController extends Controller
 {
@@ -561,7 +565,7 @@ class ContentController extends Controller
             ]);
             return redirect()->back()
                 ->withErrors($e->errors())
-                ->with('error', 'Validasi gagal: ' . implode(', ', array_flatten($e->errors())));
+                ->with('error', 'Validasi gagal: ' . implode(', ', Arr::flatten($e->errors())));
         } catch (\Exception $e) {
             \Log::error('Failed to store media (Form)', [
                 'content_id' => $content->id,
@@ -714,6 +718,88 @@ class ContentController extends Controller
             
             return redirect()->back()
                 ->with('error', 'Gagal menghapus gambar!');
+        }
+    }
+
+    /**
+     * Download template Excel untuk import konten
+     */
+    public function downloadTemplate()
+    {
+        return Excel::download(new ContentTemplateExport, 'template_konten.xlsx');
+    }
+
+    /**
+     * Import konten dari Excel
+     */
+    public function import(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls|max:10240', // 10MB max
+        ]);
+
+        try {
+            $import = new ContentsImport();
+            Excel::import($import, $request->file('excel_file'));
+
+            $importedCount = $import->getImportedCount();
+            $skippedCount = $import->getSkippedCount();
+            $errors = $import->getErrors();
+            $errorCount = count($errors);
+            $importSummary = [
+                'imported' => $importedCount,
+                'skipped' => $skippedCount,
+                'errors' => $errorCount,
+            ];
+
+            $message = "Import selesai! ";
+            $message .= "$importedCount konten berhasil diimport.";
+
+            if ($importedCount === 0 && empty($errors)) {
+                return redirect()->route('admin.contents.index')
+                    ->with('warning', 'Import selesai, tetapi tidak ada data yang diproses. Pastikan file berisi baris data di bawah header.')
+                    ->with('import_summary', $importSummary);
+            }
+            
+            if ($skippedCount > 0) {
+                $message .= " $skippedCount baris dilewati.";
+            }
+
+            if (!empty($errors)) {
+                $errorMessages = implode("\n", array_slice($errors, 0, 5)); // Show first 5 errors
+                if (count($errors) > 5) {
+                    $errorMessages .= "\n... dan " . (count($errors) - 5) . ' error lainnya';
+                }
+                return redirect()->route('admin.contents.index')
+                    ->with('warning', $message . "\n\nBeberapa error:\n" . $errorMessages)
+                    ->with('import_summary', $importSummary);
+            }
+
+            return redirect()->route('admin.contents.index')
+                ->with('success', $message)
+                ->with('import_summary', $importSummary);
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = [];
+            
+            foreach ($failures as $failure) {
+                $errorMessages[] = "Baris {$failure->row()}: " . implode(', ', $failure->errors());
+            }
+            
+            return redirect()->back()
+                ->with('error', "Validasi gagal:\n" . implode("\n", array_slice($errorMessages, 0, 5)))
+                ->withInput();
+
+        } catch (\Exception $e) {
+            \Log::error('Import failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'Import gagal: ' . $e->getMessage())
+                ->withInput();
         }
     }
 }

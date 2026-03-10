@@ -5,6 +5,22 @@
 @endsection
 
 @section('content')
+    @if(session('import_summary'))
+        @php
+            $summary = session('import_summary');
+        @endphp
+        <div class="card" style="margin-bottom: 1rem; border-left: 4px solid #0d6efd;">
+            <div class="card-body" style="padding: 1rem 1.25rem;">
+                <div class="d-flex flex-wrap align-items-center" style="gap: 0.5rem 1rem;">
+                    <strong><i class="fas fa-file-import"></i> Ringkasan Import</strong>
+                    <span class="badge bg-success">Berhasil: {{ $summary['imported'] ?? 0 }}</span>
+                    <span class="badge bg-warning text-dark">Dilewati: {{ $summary['skipped'] ?? 0 }}</span>
+                    <span class="badge bg-danger">Error: {{ $summary['errors'] ?? 0 }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!-- Filter Section -->
     <div class="card" style="margin-bottom: 2rem;">
         <div class="card-header">

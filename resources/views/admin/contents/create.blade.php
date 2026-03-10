@@ -1,13 +1,80 @@
 @extends('admin.layout')
 
 @section('page-title')
-    <i class="fas fa-plus-circle"></i> Tambah Konten Baru
+    <i class="fas fa-plus-circle"></i> Tambah Konten Baru (Manual atau Import Excel)
 @endsection
 
 @section('content')
+    <!-- Import Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <i class="fas fa-file-excel"></i> Import Konten dari Excel
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <form action="{{ route('admin.contents.import') }}" method="POST" enctype="multipart/form-data" id="import-form">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="excel_file" class="form-label">
+                                <i class="fas fa-upload"></i> Upload File Excel
+                            </label>
+                            <input 
+                                type="file" 
+                                name="excel_file" 
+                                id="excel_file" 
+                                class="form-control @error('excel_file') is-invalid @enderror" 
+                                accept=".xlsx,.xls"
+                                required
+                            >
+                            @error('excel_file')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i> Format file: .xlsx atau .xls (Maksimal 10MB)
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-file-import"></i> Import Data
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert alert-warning">
+                        <h6 class="alert-heading"><i class="fas fa-download"></i> Template Excel</h6>
+                        <p class="mb-2">Download template Excel untuk mempermudah import konten:</p>
+                        <a href="{{ route('admin.contents.template.download') }}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-file-download"></i> Download Template
+                        </a>
+                        <hr>
+                        <small>
+                            <strong>Format Template:</strong><br>
+                            • Kategori (wajib)<br>
+                            • Lemma/Judul (wajib)<br>
+                            • Tahun (opsional)<br>• Konten (wajib)<br>
+                            • URL Gambar (opsional)*<br>
+                            • Caption Gambar (opsional)<br>
+                            <br>
+                            <strong style="color: #856404;">*Gambar:</strong><br>
+                            • Masukkan URL gambar (http/https)<br>
+                            • Untuk multiple gambar, pisahkan dengan enter atau titik koma (;)<br>
+                            • Caption juga dipisahkan dengan cara yang sama<br>
+                            <br>
+                            <strong style="color: #856404;">*Format Teks Konten:</strong><br>
+                            Contoh pakai marker: **teks tebal** dan *teks miring*.
+                            Untuk baris baru, pakai Enter/Alt+Enter di Excel.
+                            Bisa juga isi HTML langsung, misalnya: <strong>tebal</strong> <em>miring</em>. <br>
+                            </small>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual Entry Section -->
     <div class="card">
         <div class="card-header">
-            <i class="fas fa-edit"></i> Form Tambah Konten
+            <i class="fas fa-edit"></i> Form Tambah Konten Manual
         </div>
         <div class="card-body">
             <form action="{{ route('admin.contents.store') }}" method="POST" id="content-form" enctype="multipart/form-data">
@@ -95,7 +162,7 @@
                     <label class="form-label">
                         <i class="fas fa-images"></i> Gambar
                     </label>
-                    
+
                     <!-- Upload New Image -->
                     <div class="card">
                         <div class="card-body">
@@ -195,7 +262,7 @@
                 const file = this.files[0];
                 const previewContainer = $(this).siblings('.image-preview-container');
                 const previewImg = previewContainer.find('.image-preview');
-                
+
                 if (file && file.type.startsWith('image/')) {
                     const reader = new FileReader();
                     reader.onload = function(e) {

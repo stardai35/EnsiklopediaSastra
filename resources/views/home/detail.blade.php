@@ -55,7 +55,7 @@
 
                     <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">{{ $content->lemma->formatted_name ?? $content->lemma->name ?? 'Konten' }}</h2>
 
-                    <div class="content-body" style="line-height: 1.8; color: #333; font-size: 1rem; word-break: break-word;">
+                    <div class="content-body" style="line-height: 1.8; color: #333; font-size: 1rem; word-break: break-word; text-align: justify; text-justify: inter-word;">
                         {!! $content->formatted_text !!}
                     </div>
 
@@ -164,6 +164,8 @@
         /* Content formatting */
         .content-body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: justify;
+            text-justify: inter-word;
         }
 
         .content-body p {

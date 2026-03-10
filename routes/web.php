@@ -20,6 +20,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [ContentController::class, 'dashboard'])->name('dashboard');
+        
+        // Import routes (must be before resource routes)
+        Route::get('contents/template/download', [ContentController::class, 'downloadTemplate'])->name('contents.template.download');
+        Route::post('contents/import/excel', [ContentController::class, 'import'])->name('contents.import');
+        
+        // Resource routes
         Route::resource('contents', ContentController::class);
         Route::post('contents/{content}/media', [ContentController::class, 'storeMedia'])->name('contents.media.store');
         Route::put('contents/{content}/media/{media}', [ContentController::class, 'updateMedia'])->name('contents.media.update');
